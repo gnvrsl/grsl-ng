@@ -1,10 +1,10 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import GrslHome from './GrslHome.tsx'
+import GrslApp from './GrslApp.tsx'
 import './index.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <GrslHome />
+    <GrslApp />
   </StrictMode>,
 )
