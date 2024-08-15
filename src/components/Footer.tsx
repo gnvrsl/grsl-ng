@@ -8,12 +8,14 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-import FacebookIcon from '@mui/icons-material/GitHub';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import TwitterIcon from '@mui/icons-material/X';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import GrslLogoFull from '../assets/grsl-logos/Horizontal-Full.png';
+
+
 
 const logoStyle = {
-  width: '140px',
+  width: '480px',
   height: 'auto',
 };
 
@@ -21,7 +23,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" mt={1}>
       {'Copyright © '}
-      <Link href="https://mui.com/">Sitemark&nbsp;</Link>
+      Gainesville Regional Soccer League&nbsp;
       {new Date().getFullYear()}
     </Typography>
   );
@@ -58,9 +60,7 @@ export default function Footer() {
           <Box sx={{ width: { xs: '100%', sm: '60%' } }}>
             <Box sx={{ ml: '-15px' }}>
               <img
-                src={
-                  'https://assets-global.website-files.com/61ed56ae9da9fd7e0ef0a967/61f12e6faf73568658154dae_SitemarkDefault.svg'
-                }
+                src={GrslLogoFull}
                 style={logoStyle}
                 alt="logo of sitemark"
               />
@@ -169,15 +169,6 @@ export default function Footer() {
         }}
       >
         <div>
-          <Link color="text.secondary" href="#">
-            Privacy Policy
-          </Link>
-          <Typography display="inline" sx={{ mx: 0.5, opacity: 0.5 }}>
-            &nbsp;•&nbsp;
-          </Typography>
-          <Link color="text.secondary" href="#">
-            Terms of Service
-          </Link>
           <Copyright />
         </div>
         <Stack
@@ -191,27 +182,19 @@ export default function Footer() {
         >
           <IconButton
             color="inherit"
-            href="https://github.com/mui"
-            aria-label="GitHub"
+            href="https://www.facebook.com/grslsoccer"
+            aria-label="Facebook"
             sx={{ alignSelf: 'center' }}
           >
             <FacebookIcon />
           </IconButton>
           <IconButton
             color="inherit"
-            href="https://x.com/MaterialUI"
-            aria-label="X"
+            href="https://www.instagram.com/gvilleregionalsoccerleague/"
+            aria-label="Instagram"
             sx={{ alignSelf: 'center' }}
           >
-            <TwitterIcon />
-          </IconButton>
-          <IconButton
-            color="inherit"
-            href="https://www.linkedin.com/company/mui/"
-            aria-label="LinkedIn"
-            sx={{ alignSelf: 'center' }}
-          >
-            <LinkedInIcon />
+            <InstagramIcon />
           </IconButton>
         </Stack>
       </Box>

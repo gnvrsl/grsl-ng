@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { PaletteMode } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -11,6 +12,9 @@ import MenuItem from '@mui/material/MenuItem';
 import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import ToggleColorMode from './ToggleColorMode';
+import grslLogoUrl from '../assets/grsl-logos/Horizontal-Full.png';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import InstagramIcon from '@mui/icons-material/Instagram';
 
 const logoStyle = {
   width: '140px',
@@ -88,11 +92,9 @@ function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
               }}
             >
               <img
-                src={
-                  'https://assets-global.website-files.com/61ed56ae9da9fd7e0ef0a967/61f12e6faf73568658154dae_SitemarkDefault.svg'
-                }
+                src={grslLogoUrl}
                 style={logoStyle}
-                alt="logo of sitemark"
+                alt="GRSL logo"
               />
               <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                 <MenuItem
@@ -100,7 +102,7 @@ function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
                   sx={{ py: '6px', px: '12px' }}
                 >
                   <Typography variant="body2" color="text.primary">
-                    Features
+                    Home
                   </Typography>
                 </MenuItem>
                 <MenuItem
@@ -108,7 +110,7 @@ function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
                   sx={{ py: '6px', px: '12px' }}
                 >
                   <Typography variant="body2" color="text.primary">
-                    Testimonials
+                    Schedule
                   </Typography>
                 </MenuItem>
                 <MenuItem
@@ -116,7 +118,7 @@ function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
                   sx={{ py: '6px', px: '12px' }}
                 >
                   <Typography variant="body2" color="text.primary">
-                    Highlights
+                    Standings
                   </Typography>
                 </MenuItem>
                 <MenuItem
@@ -124,7 +126,7 @@ function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
                   sx={{ py: '6px', px: '12px' }}
                 >
                   <Typography variant="body2" color="text.primary">
-                    Pricing
+                    Teams
                   </Typography>
                 </MenuItem>
                 <MenuItem
@@ -132,7 +134,7 @@ function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
                   sx={{ py: '6px', px: '12px' }}
                 >
                   <Typography variant="body2" color="text.primary">
-                    FAQ
+                    Info
                   </Typography>
                 </MenuItem>
               </Box>
@@ -145,26 +147,22 @@ function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
               }}
             >
               <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
-              <Button
+              <IconButton
                 color="primary"
-                variant="text"
-                size="small"
-                component="a"
-                href="/material-ui/getting-started/templates/sign-in/"
-                target="_blank"
+                href="https://www.facebook.com/grslsoccer"
+                aria-label="Facebook"
+                sx={{ alignSelf: 'center' }}
               >
-                Sign in
-              </Button>
-              <Button
+                <FacebookIcon />
+              </IconButton>
+              <IconButton
                 color="primary"
-                variant="contained"
-                size="small"
-                component="a"
-                href="/material-ui/getting-started/templates/sign-up/"
-                target="_blank"
+                href="https://www.instagram.com/gvilleregionalsoccerleague/"
+                aria-label="Instagram"
+                sx={{ alignSelf: 'center' }}
               >
-                Sign up
-              </Button>
+                <InstagramIcon />
+              </IconButton>
             </Box>
             <Box sx={{ display: { sm: '', md: 'none' } }}>
               <Button
@@ -210,28 +208,24 @@ function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
                   <MenuItem onClick={() => scrollToSection('faq')}>FAQ</MenuItem>
                   <Divider />
                   <MenuItem>
-                    <Button
-                      color="primary"
-                      variant="contained"
-                      component="a"
-                      href="/material-ui/getting-started/templates/sign-up/"
-                      target="_blank"
-                      sx={{ width: '100%' }}
+                    <IconButton
+                      color="inherit"
+                      href="https://www.facebook.com/grslsoccer"
+                      aria-label="Facebook"
+                      sx={{ alignSelf: 'center' }}
                     >
-                      Sign up
-                    </Button>
+                      <FacebookIcon />
+                    </IconButton>
                   </MenuItem>
                   <MenuItem>
-                    <Button
-                      color="primary"
-                      variant="outlined"
-                      component="a"
-                      href="/material-ui/getting-started/templates/sign-in/"
-                      target="_blank"
-                      sx={{ width: '100%' }}
+                    <IconButton
+                      color="inherit"
+                      href="https://www.instagram.com/gvilleregionalsoccerleague/"
+                      aria-label="Instagram"
+                      sx={{ alignSelf: 'center' }}
                     >
-                      Sign in
-                    </Button>
+                      <InstagramIcon />
+                    </IconButton>
                   </MenuItem>
                 </Box>
               </Drawer>
