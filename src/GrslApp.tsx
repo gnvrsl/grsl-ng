@@ -9,12 +9,17 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import HomePage from './components/HomePage';
+import Standings from './components/Standings';
 
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomePage />
+  },
+  {
+    path: "standings",
+    element: <Standings />
   }
 ])
 
@@ -30,7 +35,7 @@ export default function GrslApp() {
   return (
     <ThemeProvider theme={LPtheme}>
       <CssBaseline />
-      <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
+      <AppAppBar mode={mode} toggleColorMode={toggleColorMode} router={router} />
       <RouterProvider router={router} />
     </ThemeProvider>
   );

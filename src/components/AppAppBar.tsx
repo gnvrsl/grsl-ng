@@ -15,6 +15,8 @@ import ToggleColorMode from './ToggleColorMode';
 import grslLogoUrl from '../assets/grsl-logos/Horizontal-Full.png';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
+import { Router } from 'react-router-dom';
+
 
 const logoStyle = {
   width: '140px',
@@ -25,9 +27,10 @@ const logoStyle = {
 interface AppAppBarProps {
   mode: PaletteMode;
   toggleColorMode: () => void;
+  router: typeof Router;
 }
 
-function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
+function AppAppBar({ mode, toggleColorMode, router }: AppAppBarProps) {
   const [open, setOpen] = React.useState(false);
 
   const toggleDrawer = (newOpen: boolean) => () => {
@@ -98,7 +101,7 @@ function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
               />
               <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                 <MenuItem
-                  onClick={() => scrollToSection('features')}
+                  onClick={() => router.navigate("/")}
                   sx={{ py: '6px', px: '12px' }}
                 >
                   <Typography variant="body2" color="text.primary">
@@ -106,7 +109,7 @@ function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
                   </Typography>
                 </MenuItem>
                 <MenuItem
-                  onClick={() => scrollToSection('testimonials')}
+                  href="/schedule"
                   sx={{ py: '6px', px: '12px' }}
                 >
                   <Typography variant="body2" color="text.primary">
@@ -114,7 +117,7 @@ function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
                   </Typography>
                 </MenuItem>
                 <MenuItem
-                  onClick={() => scrollToSection('highlights')}
+                  onClick={() => router.navigate("/standings")}
                   sx={{ py: '6px', px: '12px' }}
                 >
                   <Typography variant="body2" color="text.primary">
