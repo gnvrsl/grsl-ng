@@ -3,9 +3,9 @@ import Hero from './Hero';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import LogoCollection from './LogoCollection';
-import Testimonials from './Testimonials';
 import FAQ from './FAQ';
 import Footer from './Footer';
+import Announcements from './Announcements';
 
 
 export default function HomePage() {
@@ -16,7 +16,7 @@ export default function HomePage() {
       <Box sx={{ bgcolor: 'background.default' }}>
         <LogoCollection />
         <Divider />
-        <Testimonials />
+        <Announcements />
         <Divider />
         <FAQ />
         <Divider />

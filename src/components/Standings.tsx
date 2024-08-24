@@ -2,8 +2,7 @@ import {
   alpha,
   Box,
   Container, 
-  Paper,
-  Stack,
+  IconButton,
   Table,
   TableContainer,
   TableBody,
@@ -12,14 +11,38 @@ import {
   TableRow,
   Typography
 } from '@mui/material';
+import {
+  ArrowLeft,
+  ArrowRight
+} from '@mui/icons-material';
 import * as React from 'react';
 import Footer from './Footer';
 import { useLoaderData } from 'react-router-dom';
 import { getData } from '../GrslData';
+import { useState } from 'react';
 
 export default function Standings() {
   const grslData = getData();
-  let activeStandings = grslData.seasons[33].standings;
+  const [activeSeasonIdx, setActiveSeason] = useState(33);
+  const activeSeason = grslData.seasons[activeSeasonIdx];
+  let activeStandings = activeSeason.standings;
+
+  function prevSeason() {
+    setActiveSeason(activeSeasonIdx - 1);
+  }
+
+  function nextSeason() {
+    setActiveSeason(activeSeasonIdx + 1);
+  }
+
+  //const bgOriginal = (theme) => ({
+  //  backgroundImage:
+  //  theme.palette.mode === 'light'
+  //    ? 'linear-gradient(180deg, #CEF5C4, #FFF)'
+  //    : `linear-gradient(#02294F, ${alpha('#090E10', 0.0)})`,
+  //  backgroundSize: '100% 20%',
+  //  backgroundRepeat: 'no-repeat',
+  //})
 
   const leagues = ['a', 'b', 'c'];
   const leagueNames: any = {
@@ -34,12 +57,7 @@ export default function Standings() {
         id="hero"
         sx={(theme) => ({
           width: '100%',
-          backgroundImage:
-            theme.palette.mode === 'light'
-              ? 'linear-gradient(180deg, #CEF5C4, #FFF)'
-              : `linear-gradient(#02294F, ${alpha('#090E10', 0.0)})`,
-          backgroundSize: '100% 20%',
-          backgroundRepeat: 'no-repeat',
+
         })}
       >
         <Container
@@ -51,44 +69,52 @@ export default function Standings() {
             pb: { xs: 8, sm: 12 },
           }}
         >
+          
+          <h1>
+            <IconButton onClick={prevSeason}><ArrowLeft /></IconButton>
+            {activeSeason.name} Standings
+            <IconButton onClick={nextSeason}><ArrowRight /></IconButton>
+          </h1>
           { Object.entries(activeStandings).map(([division, lstanding]) => {
             if (lstanding.length) {
               return (
-                <TableContainer key={division}>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell align="center" colSpan={8}>
-                        <Typography sx={{ fontWeight: 'bold', mt: 2 }}>{leagueNames[division]}</Typography>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Team</TableCell>
-                      <TableCell>Wins</TableCell>
-                      <TableCell>Draws</TableCell>
-                      <TableCell>Losses</TableCell>
-                      <TableCell>Points</TableCell>
-                      <TableCell>GF</TableCell>
-                      <TableCell>GA</TableCell>
-                      <TableCell>GD</TableCell>  
-                    </TableRow>  
-                  </TableHead> 
-                  <TableBody>
-                    { lstanding.map(s => 
-                      <TableRow
-                        key={s.team.name}
-                      >
-                        <TableCell sx={{ minWidth: 200 }}>{s.team.name}</TableCell>
-                        <TableCell align="right">{s.wins}</TableCell>
-                        <TableCell align="right">{s.draws}</TableCell>
-                        <TableCell align="right">{s.losses}</TableCell>
-                        <TableCell align="right" sx={{ fontWeight: 'bold' }}>{s.points}</TableCell>
-                        <TableCell align="right">{s.goalsFor}</TableCell>
-                        <TableCell align="right">{s.goalsAgainst}</TableCell>
-                        <TableCell align="right">{s.goalDifference}</TableCell>
+                <TableContainer key={division} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                  <Table sx={{ maxWidth: 80, mb: 2 }}>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell align="center" colSpan={8} sx={{typography: 'subtitle2'}}>
+                          {leagueNames[division]}
+                        </TableCell>
                       </TableRow>
-                    )}
-                    
-                  </TableBody>
+                      <TableRow>
+                        <TableCell>Team</TableCell>
+                        <TableCell align="right">Wins</TableCell>
+                        <TableCell align="right">Draws</TableCell>
+                        <TableCell align="right">Losses</TableCell>
+                        <TableCell align="right">Points</TableCell>
+                        <TableCell align="right">GF</TableCell>
+                        <TableCell align="right">GA</TableCell>
+                        <TableCell align="right">GD</TableCell>  
+                      </TableRow>  
+                    </TableHead> 
+                    <TableBody>
+                      { lstanding.map(s => 
+                        <TableRow
+                          key={s.team.name}
+                        >
+                          <TableCell sx={{ minWidth: 200 }}>{s.team.name}</TableCell>
+                          <TableCell align="right">{s.wins}</TableCell>
+                          <TableCell align="right">{s.draws}</TableCell>
+                          <TableCell align="right">{s.losses}</TableCell>
+                          <TableCell align="right" sx={{ fontWeight: 'medium' }}>{s.points}</TableCell>
+                          <TableCell align="right">{s.goalsFor}</TableCell>
+                          <TableCell align="right">{s.goalsAgainst}</TableCell>
+                          <TableCell align="right">{s.goalDifference}</TableCell>
+                        </TableRow>
+                      )}
+                      
+                    </TableBody>
+                  </Table>
                 </TableContainer>
               )}
             }

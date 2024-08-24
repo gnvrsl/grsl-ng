@@ -30,7 +30,7 @@ interface AppAppBarProps {
   router: typeof Router;
 }
 
-function AppAppBar({ mode, toggleColorMode, router }: AppAppBarProps) {
+function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
   const [open, setOpen] = React.useState(false);
 
   const toggleDrawer = (newOpen: boolean) => () => {

@@ -3,13 +3,14 @@ import { PaletteMode } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import AppAppBar from './components/AppAppBar';
-import getLPTheme from './getLPTheme';
+import getGRSLTheme from './getLPTheme';
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
 import HomePage from './components/HomePage';
 import Standings from './components/Standings';
+
 
 
 const router = createBrowserRouter([
@@ -26,14 +27,15 @@ const router = createBrowserRouter([
 
 export default function GrslApp() {
   const [mode, setMode] = React.useState<PaletteMode>('light');
-  const LPtheme = createTheme(getLPTheme(mode));
+  const GRSLTheme = createTheme(getGRSLTheme(mode));
+  const defaultTheme = createTheme({ palette: { mode } });
 
   const toggleColorMode = () => {
     setMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
   };
 
   return (
-    <ThemeProvider theme={LPtheme}>
+    <ThemeProvider theme={GRSLTheme}>
       <CssBaseline />
       <AppAppBar mode={mode} toggleColorMode={toggleColorMode} router={router} />
       <RouterProvider router={router} />
