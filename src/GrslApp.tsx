@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 import HomePage from './components/HomePage';
 import Standings from './components/Standings';
-
+import Schedule from './components/Schedule';
 
 
 const router = createBrowserRouter([
@@ -21,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: "standings",
     element: <Standings />
+  },
+  {
+    path: "schedule",
+    element: <Schedule />
   }
 ])
 

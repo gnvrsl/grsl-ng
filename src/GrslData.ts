@@ -3,6 +3,7 @@ import {
   fields,
   goals,
   schedule, 
+  playDates,
   players, 
   seasons, 
   standings,
@@ -31,6 +32,16 @@ export interface Field {
   code: string,  // name
   name: string, // lname
   url: string | null // maplink
+}
+
+export interface PlayDate {
+  _id: number, // pdid
+  date: Date, // gameDate
+  dateStr: string, // gameDate as string
+  gType: number, // tgame
+  title: string, // gameName
+  comments: string | null, // comments
+  season?: Season
 }
 
 export interface Player {
@@ -92,7 +103,8 @@ export interface Standings {
 export interface Game {
   _id: number,
   gameTime: Date,
-  gameDate: Date,
+  date: Date,
+  playDate: PlayDate,
   homeTeam: Team,
   awayTeam: Team,
   homeScore: number | null,
@@ -146,6 +158,21 @@ export function getData(): LeagueData {
     gSeasons[gs._id] = gs;
   }
 
+  let gPlayDates: { [key: number]: PlayDate } = {};
+  for (let pd of playDates) {
+    let pds = gSeasons[pd.sid];
+    let gpd: PlayDate = {
+      _id: pd.pdid,
+      date: new Date(pd.gameDate),
+      dateStr: pd.gameDate,
+      gType: pd.tgame,
+      title: pd.gameName,
+      comments: pd.comments,
+      season: pds
+    };
+    gPlayDates[gpd._id] = gpd
+  }
+
   let gPlayers: { [key: number]: Player } = {};
   for (let p of players) {
     let gp = {
@@ -190,12 +217,18 @@ export function getData(): LeagueData {
 
   let gGames: { [key: number]: Game } = {};
   for (let g of schedule) {
-    if (! g.gameID) {
-      let err= "whoa now!"
+    let pd = gPlayDates[g.pdid];
+
+    if (! pd) {
+      console.error("missing play date!");
     }
+
+    let gDate = new Date(pd.dateStr + "T" + g.startTime);
+
     let gg: Game = {
       _id: g.gameID,
-      gameDate: new Date(g.gameDate),
+      date: gDate,
+      playDate: pd,
       gameTime: new Date(g.startTime),
       homeTeam: gTeams[g.homeTeamID],
       awayTeam: gTeams[g.awayTeamID],

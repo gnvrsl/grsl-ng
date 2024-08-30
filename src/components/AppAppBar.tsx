@@ -16,6 +16,7 @@ import grslLogoUrl from '../assets/grsl-logos/Horizontal-Full.png';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import { Router } from 'react-router-dom';
+import { RemixRouter } from "@remix-run/router";
 
 
 const logoStyle = {
@@ -27,7 +28,7 @@ const logoStyle = {
 interface AppAppBarProps {
   mode: PaletteMode;
   toggleColorMode: () => void;
-  router: typeof Router;
+  router: RemixRouter;
 }
 
 function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
@@ -109,7 +110,7 @@ function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
                   </Typography>
                 </MenuItem>
                 <MenuItem
-                  href="/schedule"
+                  onClick={() => router.navigate('/schedule')}
                   sx={{ py: '6px', px: '12px' }}
                 >
                   <Typography variant="body2" color="text.primary">

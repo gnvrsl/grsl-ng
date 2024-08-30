@@ -1,5 +1,4 @@
 import { 
-  alpha,
   Box,
   Container, 
   IconButton,
@@ -8,16 +7,13 @@ import {
   TableBody,
   TableCell,
   TableHead,
-  TableRow,
-  Typography
+  TableRow
 } from '@mui/material';
 import {
   ArrowLeft,
   ArrowRight
 } from '@mui/icons-material';
-import * as React from 'react';
 import Footer from './Footer';
-import { useLoaderData } from 'react-router-dom';
 import { getData } from '../GrslData';
 import { useState } from 'react';
 
