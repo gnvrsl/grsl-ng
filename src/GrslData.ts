@@ -275,7 +275,7 @@ export function getData(): LeagueData {
     }
     else {
       if (! gSeasons[s.sid].standings[div]) {
-        let err = "bad data here";
+        console.log("bad data here");
       }
       gSeasons[s.sid].standings[div].push(gs);
     }

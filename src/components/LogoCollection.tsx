@@ -1,8 +1,6 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import { useTheme } from '@mui/system';
 import fieldIcon from '../assets/field-icon.png';
 import trophyIcon from '../assets/trophy-1c3c63.png';
 import jerseyIcon from '../assets/jersey_icon.png';

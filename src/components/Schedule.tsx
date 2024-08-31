@@ -5,7 +5,7 @@ import {
   Container,
   Divider
 } from '@mui/material';
-import { useState } from 'react';
+//import { useState } from 'react';
 import GameLine from './GameLine';
 import Footer from './Footer';
 
@@ -13,8 +13,8 @@ import Footer from './Footer';
 export default function Schedule() {
   const grslData = getData();
 
-  const [activeSeasonIdx, setActiveSeason] = useState(33);
-  const activeSeason = grslData.seasons[activeSeasonIdx];
+  //const [activeSeasonIdx, setActiveSeason] = useState(33);
+  const activeSeason = grslData.seasons[33];
   const seasonGames = activeSeason.games;
 
 

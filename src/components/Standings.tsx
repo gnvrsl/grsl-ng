@@ -40,7 +40,7 @@ export default function Standings() {
   //  backgroundRepeat: 'no-repeat',
   //})
 
-  const leagues = ['a', 'b', 'c'];
+  //const leagues = ['a', 'b', 'c'];
   const leagueNames: any = {
     a: 'A League',
     b: 'B League',
@@ -51,10 +51,7 @@ export default function Standings() {
     <>
       <Box
         id="hero"
-        sx={(theme) => ({
-          width: '100%',
-
-        })}
+        sx={{ width: '100%' }}
       >
         <Container
           sx={{

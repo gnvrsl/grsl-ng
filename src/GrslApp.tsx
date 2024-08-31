@@ -32,7 +32,7 @@ const router = createBrowserRouter([
 export default function GrslApp() {
   const [mode, setMode] = React.useState<PaletteMode>('light');
   const GRSLTheme = createTheme(getGRSLTheme(mode));
-  const defaultTheme = createTheme({ palette: { mode } });
+  //const defaultTheme = createTheme({ palette: { mode } });
 
   const toggleColorMode = () => {
     setMode((prev) => (prev === 'dark' ? 'light' : 'dark'));

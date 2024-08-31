@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
@@ -7,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import { useTheme } from '@mui/system';
+
 
 const userTestimonials = [
   {
@@ -55,10 +54,6 @@ const userTestimonials = [
 ];
 
 
-const logoStyle = {
-  width: '64px',
-  opacity: 0.3,
-};
 
 export default function Announcements() {
 

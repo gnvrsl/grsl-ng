@@ -15,8 +15,6 @@ import ToggleColorMode from './ToggleColorMode';
 import grslLogoUrl from '../assets/grsl-logos/Horizontal-Full.png';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import { Router } from 'react-router-dom';
-import { RemixRouter } from "@remix-run/router";
 
 
 const logoStyle = {
@@ -28,7 +26,7 @@ const logoStyle = {
 interface AppAppBarProps {
   mode: PaletteMode;
   toggleColorMode: () => void;
-  router: RemixRouter;
+  router: { navigate: (url: string) => void };
 }
 
 function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Hero from './Hero';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
