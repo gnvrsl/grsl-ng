@@ -57,6 +57,7 @@ export interface Player {
 export interface Team {
   _id: number,
   name: string,
+  code: string,
   captain1: Player | null,
   captain2: Player | null,
   jersey1: string | null, 
@@ -205,6 +206,7 @@ export function getData(): LeagueData {
     gTeams[t.teamid] = {
       _id: t.teamid,
       name: t.teamname,
+      code: t.code,
       captain1: t.captain1 ? gPlayers[t.captain1] : null,
       captain2: t.captain2 ? gPlayers[t.captain2] : null,
       jersey1: t.jersey1,

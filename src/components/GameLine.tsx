@@ -4,6 +4,8 @@ import {
   Paper,
   Stack
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 interface GameLineProps {
   game: Game
@@ -18,6 +20,10 @@ export default function GameLine({ game} : GameLineProps) {
   if (game.tournament) {
     gameType = gameTypes[game.gameType];
   }
+
+  const theme = useTheme();
+  const shortNames = useMediaQuery(theme.breakpoints.down('sm'));
+  const mediumNames = useMediaQuery(theme.breakpoints.down('md'));
   
   return (
     <Box sx={{
@@ -36,7 +42,7 @@ export default function GameLine({ game} : GameLineProps) {
               </Box>
             </Stack>
             <Box sx={teamNameStyle}>
-              {game.homeTeam.name}
+              { shortNames ? game.homeTeam.code : game.homeTeam.name}
             </Box> 
           </Box>
           <Paper sx={{
@@ -58,14 +64,14 @@ export default function GameLine({ game} : GameLineProps) {
           </Paper>
           <Box sx={{flex: 1, display: 'flex', flexDirection: 'row'}}>
             <Box sx={teamNameStyle}>
-              {game.awayTeam.name}
+              { shortNames ? game.awayTeam.code : game.awayTeam.name}
             </Box>
             <Stack sx={{ flex: 1}}>
               <Box sx={{ textAlign: 'right', typography: 'subtitle1'}}>
-                {game.field.name}
+                { shortNames ? game.field.code : game.field.name}
               </Box>
               <Box sx={{ textAlign: 'right', typography: 'subtitle2'}}>
-                {lgDesc} {gameType}
+                {lgDesc} { mediumNames ? "" : gameType}
               </Box>
 
             </Stack>

@@ -16,6 +16,8 @@ import {
 import Footer from './Footer';
 import { getData } from '../GrslData';
 import { useState } from 'react';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export default function Standings() {
   const grslData = getData();
@@ -31,14 +33,9 @@ export default function Standings() {
     setActiveSeason(activeSeasonIdx + 1);
   }
 
-  //const bgOriginal = (theme) => ({
-  //  backgroundImage:
-  //  theme.palette.mode === 'light'
-  //    ? 'linear-gradient(180deg, #CEF5C4, #FFF)'
-  //    : `linear-gradient(#02294F, ${alpha('#090E10', 0.0)})`,
-  //  backgroundSize: '100% 20%',
-  //  backgroundRepeat: 'no-repeat',
-  //})
+  const theme = useTheme();
+  const short = useMediaQuery(theme.breakpoints.down('sm'));
+  const medium = useMediaQuery(theme.breakpoints.down('md'));
 
   //const leagues = ['a', 'b', 'c'];
   const leagueNames: any = {
@@ -72,7 +69,7 @@ export default function Standings() {
             if (lstanding.length) {
               return (
                 <TableContainer key={division} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                  <Table sx={{ maxWidth: 80, mb: 2 }}>
+                  <Table sx={{ maxWidth: { lg: 80, md: 100 }, mb: 2}}>
                     <TableHead>
                       <TableRow>
                         <TableCell align="center" colSpan={8} sx={{typography: 'subtitle2'}}>
@@ -81,12 +78,16 @@ export default function Standings() {
                       </TableRow>
                       <TableRow>
                         <TableCell>Team</TableCell>
-                        <TableCell align="right">Wins</TableCell>
-                        <TableCell align="right">Draws</TableCell>
-                        <TableCell align="right">Losses</TableCell>
-                        <TableCell align="right">Points</TableCell>
-                        <TableCell align="right">GF</TableCell>
-                        <TableCell align="right">GA</TableCell>
+                        <TableCell align="right">{medium ? "W" : "Wins"}</TableCell>
+                        <TableCell align="right">{medium ? "D" : "Draws"}</TableCell>
+                        <TableCell align="right">{medium ? "L" : "Losses"}</TableCell>
+                        <TableCell align="right">{short ? "P" : "Points"}</TableCell>
+                        { short ? "" :
+                          <>
+                          <TableCell align="right">GF</TableCell>
+                          <TableCell align="right">GA</TableCell>
+                          </> 
+                        }
                         <TableCell align="right">GD</TableCell>  
                       </TableRow>  
                     </TableHead> 
@@ -95,14 +96,23 @@ export default function Standings() {
                         <TableRow
                           key={s.team.name}
                         >
-                          <TableCell sx={{ minWidth: 200 }}>{s.team.name}</TableCell>
-                          <TableCell align="right">{s.wins}</TableCell>
-                          <TableCell align="right">{s.draws}</TableCell>
-                          <TableCell align="right">{s.losses}</TableCell>
-                          <TableCell align="right" sx={{ fontWeight: 'medium' }}>{s.points}</TableCell>
-                          <TableCell align="right">{s.goalsFor}</TableCell>
-                          <TableCell align="right">{s.goalsAgainst}</TableCell>
-                          <TableCell align="right">{s.goalDifference}</TableCell>
+                          <TableCell sx={{ 
+                            minWidth: { sm: 100,  md: 200 },
+                            fontSize: '1.1rem'  
+                          }}>
+                            {short ? s.team.code : s.team.name}
+                          </TableCell>
+                          <TableCell align="right" sx={{ fontSize: '1.3rem'}}>{s.wins}</TableCell>
+                          <TableCell align="right" sx={{ fontSize: '1.3rem'}}>{s.draws}</TableCell>
+                          <TableCell align="right" sx={{ fontSize: '1.3rem'}}>{s.losses}</TableCell>
+                          <TableCell align="right" sx={{ fontSize: '1.6rem', fontWeight: 'medium' }}>{s.points}</TableCell>
+                          { short ? "": 
+                            <>
+                              <TableCell align="right" sx={{ fontSize: '1.3rem'}}>{s.goalsFor}</TableCell>
+                              <TableCell align="right" sx={{ fontSize: '1.3rem'}}>{s.goalsAgainst}</TableCell>
+                            </>
+                          }
+                          <TableCell align="right" sx={{ fontSize: '1.3rem'}}>{s.goalDifference}</TableCell>
                         </TableRow>
                       )}
                       

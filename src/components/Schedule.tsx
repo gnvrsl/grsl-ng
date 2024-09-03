@@ -17,9 +17,6 @@ export default function Schedule() {
   const activeSeason = grslData.seasons[33];
   const seasonGames = activeSeason.games;
 
-
-
-
   return(
     <>
       <Box

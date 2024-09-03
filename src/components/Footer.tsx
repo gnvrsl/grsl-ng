@@ -12,6 +12,7 @@ import GrslLogoFull from '../assets/grsl-logos/Horizontal-Full.png';
 
 const logoStyle = {
   width: '480px',
+  maxWidth: '100vw',
   height: 'auto',
 };
 

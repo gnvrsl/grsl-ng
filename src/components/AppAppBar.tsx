@@ -13,13 +13,16 @@ import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import ToggleColorMode from './ToggleColorMode';
 import grslLogoUrl from '../assets/grsl-logos/Horizontal-Full.png';
+import grslShieldUrl from '../assets/grsl-logos/Shield-NavyBlue.png';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 
 const logoStyle = {
-  width: '140px',
-  height: 'auto',
+  width: 'auto',
+  height: '60px',
   cursor: 'pointer',
 };
 
@@ -49,6 +52,9 @@ function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
       setOpen(false);
     }
   };
+
+  const theme = useTheme();
+  const smallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <div>
@@ -94,7 +100,7 @@ function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
               }}
             >
               <img
-                src={grslLogoUrl}
+                src={smallScreen ? grslShieldUrl : grslLogoUrl}
                 style={logoStyle}
                 alt="GRSL logo"
               />
@@ -195,19 +201,21 @@ function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
                   >
                     <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
                   </Box>
-                  <MenuItem onClick={() => scrollToSection('features')}>
-                    Features
+                  <MenuItem onClick={() => router.navigate('/')}>
+                    Home
                   </MenuItem>
-                  <MenuItem onClick={() => scrollToSection('testimonials')}>
-                    Testimonials
+                  <MenuItem onClick={() => router.navigate('/schedule')}>
+                    Schedule
                   </MenuItem>
-                  <MenuItem onClick={() => scrollToSection('highlights')}>
-                    Highlights
+                  <MenuItem onClick={() => router.navigate('/standings')}>
+                    Standings
                   </MenuItem>
-                  <MenuItem onClick={() => scrollToSection('pricing')}>
-                    Pricing
+                  <MenuItem onClick={() => router.navigate('/teams')}>
+                    Teams
                   </MenuItem>
-                  <MenuItem onClick={() => scrollToSection('faq')}>FAQ</MenuItem>
+                  <MenuItem onClick={() => router.navigate('/info')}>
+                    Info
+                  </MenuItem>
                   <Divider />
                   <MenuItem>
                     <IconButton
