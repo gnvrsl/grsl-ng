@@ -7,8 +7,10 @@ import Typography from '@mui/material/Typography';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import GrslLogoFull from '../assets/grsl-logos/Horizontal-Full.png';
-
-
+import bylaws from '../assets/GRSLByLaws.pdf';
+import summerRules from '../assets/SummerRulesandRegulations-8v8.pdf';
+import fallSpringRules from '../assets/FALL2023CORECRULES-APPROVED23AUG2023.pdf';
+import lotg from '../assets/LOTG2024_25.pdf';
 
 const logoStyle = {
   width: '480px',
@@ -72,62 +74,19 @@ export default function Footer() {
           }}
         >
           <Typography variant="body2" fontWeight={600}>
-            Product
+            Documents
           </Typography>
-          <Link color="text.secondary" href="#">
-            Features
+          <Link color="text.secondary" href={bylaws} target="_blank">
+            GRSL Bylaws
           </Link>
-          <Link color="text.secondary" href="#">
-            Testimonials
+          <Link color="text.secondary" href={fallSpringRules} target="_blank">
+            Fall/Spring Regulations
           </Link>
-          <Link color="text.secondary" href="#">
-            Highlights
+          <Link color="text.secondary" href={summerRules} target="_blank">
+            Summer Regulations
           </Link>
-          <Link color="text.secondary" href="#">
-            Pricing
-          </Link>
-          <Link color="text.secondary" href="#">
-            FAQs
-          </Link>
-        </Box>
-        <Box
-          sx={{
-            display: { xs: 'none', sm: 'flex' },
-            flexDirection: 'column',
-            gap: 1,
-          }}
-        >
-          <Typography variant="body2" fontWeight={600}>
-            Company
-          </Typography>
-          <Link color="text.secondary" href="#">
-            About us
-          </Link>
-          <Link color="text.secondary" href="#">
-            Careers
-          </Link>
-          <Link color="text.secondary" href="#">
-            Press
-          </Link>
-        </Box>
-        <Box
-          sx={{
-            display: { xs: 'none', sm: 'flex' },
-            flexDirection: 'column',
-            gap: 1,
-          }}
-        >
-          <Typography variant="body2" fontWeight={600}>
-            Legal
-          </Typography>
-          <Link color="text.secondary" href="#">
-            Terms
-          </Link>
-          <Link color="text.secondary" href="#">
-            Privacy
-          </Link>
-          <Link color="text.secondary" href="#">
-            Contact
+          <Link color="text.secondary" href={lotg} target="_blank">
+            Laws of the Game
           </Link>
         </Box>
       </Box>

@@ -14,46 +14,60 @@ interface GameLineProps {
 export default function GameLine({ game} : GameLineProps) {
   const teamNameStyle = { typography: 'h5', m: 1};
 
-  const gameTypes = { r: 'Group Stage', s: 'Semifinal', f: 'Final', t: '3rd Place', '': 'Regular Season' };
-  const lgDesc = game.division.toUpperCase() + ' League';
-  let gameType = 'Regular Season';
-  if (game.tournament) {
-    gameType = gameTypes[game.gameType];
-  }
+  const gameTypes = { 
+    r: ['Group', 'Group Stage'], 
+    s: ['Semi', 'Semifinal'], 
+    f: ['Final', 'Final'], 
+    t: ['3rd Pl.','3rd Place'],
+    '':['', 'Regular Season']
+  };
+  
+
 
   const theme = useTheme();
   const shortNames = useMediaQuery(theme.breakpoints.down('sm'));
   const mediumNames = useMediaQuery(theme.breakpoints.down('md'));
+
+  const lgUpper = game.division.toUpperCase();
+  const lgDesc = mediumNames ? "Div " + lgUpper : "Division " + lgUpper;
+
+  let gameType;
+  const gtIdx = mediumNames ? 0 : 1;
+  if (game.tournament) {
+    gameType = gameTypes[game.gameType][gtIdx];
+  } else {
+    gameType = gameTypes[''][gtIdx];
+  }
   
   return (
     <Box sx={{
       alignItems: 'spaceAround',
       display: 'flex', 
       flexDirection: 'row'}}>
-      { game.recorded ? (
-        <>
-          <Box sx={{flex: 1, display: 'flex', flexDirection: 'row'}}>
-            <Stack sx={{ flex: 1 }}>
-              <Box sx={{ fontWeight: '500' }}>
-                {game.date.getMonth() + 1}/{game.date.getDate()}
-              </Box>
-              <Box sx={{typography: 'subtitle1'}}>
-                {game.date.toLocaleTimeString(undefined, {hour12: true, timeStyle: "short"})}
-              </Box>
-            </Stack>
-            <Box sx={teamNameStyle}>
-              { shortNames ? game.homeTeam.code : game.homeTeam.name}
-            </Box> 
+      <Box sx={{flex: 1, display: 'flex', flexDirection: 'row'}}>
+        <Stack sx={{ flex: 1 }}>
+          <Box sx={{typography: 'subtitle1'}}>
+            { mediumNames ? game.field.code : game.field.name}
           </Box>
-          <Paper sx={{
-              typography: 'h6', 
-              m: 1, 
-              display: 'flex', 
-              flexDirection: 'row',
-              textAlign: 'center',
-              alignItems: 'center',
-              justifyContent: 'center',
-              minWidth: '48px'}}>
+          <Box sx={{typography: 'subtitle1'}}>
+            {game.date.toLocaleTimeString(undefined, {hour12: true, timeStyle: "short"})}
+          </Box>
+        </Stack>
+        <Box sx={teamNameStyle}>
+          { shortNames ? game.homeTeam.code : game.homeTeam.name}
+        </Box> 
+      </Box>
+      <Paper sx={{
+          typography: 'h6', 
+          m: 1, 
+          display: 'flex', 
+          flexDirection: 'row',
+          textAlign: 'center',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minWidth: '48px'}}>
+          { game.recorded ? 
+            <>
               <Box sx={{ minWidth: '20px', textAlign: 'right'}}>{game.homeScore}</Box>
               <div style={{ 
                 borderLeft: '1px solid #888', 
@@ -61,33 +75,24 @@ export default function GameLine({ game} : GameLineProps) {
                 marginLeft: '4px', 
                 marginRight: '4px'}}></div>
               <Box sx={{ minWidth: '20px', textAlign: 'left'}}>{game.awayScore}</Box>
-          </Paper>
-          <Box sx={{flex: 1, display: 'flex', flexDirection: 'row'}}>
-            <Box sx={teamNameStyle}>
-              { shortNames ? game.awayTeam.code : game.awayTeam.name}
-            </Box>
-            <Stack sx={{ flex: 1}}>
-              <Box sx={{ textAlign: 'right', typography: 'subtitle1'}}>
-                { mediumNames ? game.field.code : game.field.name}
-              </Box>
-              <Box sx={{ textAlign: 'right', typography: 'subtitle2'}}>
-                {lgDesc} { mediumNames ? "" : gameType}
-              </Box>
-
-            </Stack>
-
+            </> :
+            "vs."
+          }
+      </Paper>
+      <Box sx={{flex: 1, display: 'flex', flexDirection: 'row'}}>
+        <Box sx={teamNameStyle}>
+          { shortNames ? game.awayTeam.code : game.awayTeam.name}
+        </Box>
+        <Stack sx={{ flex: 1}}>
+          <Box sx={{ textAlign: 'right', typography: 'subtitle1'}}>
+            {lgDesc}
           </Box>
-        </>
-      ) : (
-        <>
-          <Box>
-            {game.homeTeam.name}
-          </Box>  
-          <Box>
-            {game.awayTeam.name}
+          <Box sx={{ textAlign: 'right', typography: 'subtitle2'}}>
+            {gameType}
           </Box>
-        </>
-      )}
+
+        </Stack>
+      </Box>
     </Box>
   )
 
