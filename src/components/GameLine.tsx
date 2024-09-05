@@ -38,7 +38,7 @@ export default function GameLine({ game} : GameLineProps) {
                 {game.date.getMonth() + 1}/{game.date.getDate()}
               </Box>
               <Box sx={{typography: 'subtitle1'}}>
-                {game.date.getHours()}:{game.date.getMinutes()}{ game.date.getHours() < 12 ? 'am' : 'pm'}
+                {game.date.toLocaleTimeString(undefined, {hour12: true, timeStyle: "short"})}
               </Box>
             </Stack>
             <Box sx={teamNameStyle}>
@@ -68,7 +68,7 @@ export default function GameLine({ game} : GameLineProps) {
             </Box>
             <Stack sx={{ flex: 1}}>
               <Box sx={{ textAlign: 'right', typography: 'subtitle1'}}>
-                { shortNames ? game.field.code : game.field.name}
+                { mediumNames ? game.field.code : game.field.name}
               </Box>
               <Box sx={{ textAlign: 'right', typography: 'subtitle2'}}>
                 {lgDesc} { mediumNames ? "" : gameType}

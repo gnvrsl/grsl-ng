@@ -77,9 +77,7 @@ export interface Season {
   hasTournament: boolean,
   comment: string | null,
   location: string,
-  games: {
-    [key in Division] : Game[]
-  },
+  games: Game[],
   standings: { [key in Division]: Standings[] },
   tournamentStandings: { [key in Division]: { [key: string]: Standings[] }},
   goals: Goal[],
@@ -129,7 +127,8 @@ export interface LeagueData {
   'teams': { [key: number]: Team },
   'games': { [key: number]: Game },
   'fields': { [key: number]: Field },
-  'players': { [key: number]: Player}
+  'players': { [key: number]: Player},
+  'years': number[],
 }
 
 let _grslData: LeagueData | null = null;
@@ -139,6 +138,7 @@ export function getData(): LeagueData {
     return _grslData;
   }
 
+  let gYears: number[] = []
   let gSeasons: { [key: number]: Season } = {};
   for (let s of seasons) {
     let gs: Season = {
@@ -150,14 +150,18 @@ export function getData(): LeagueData {
       hasTournament: s.Tournament,
       comment: s.comments,
       location: s.location,
-      games: { a: [], b: [], c: []},
+      games: [],
       standings: { a: [], b: [], c: []},
       tournamentStandings: { a: {}, b: {}, c: {}},
       goals: [],
       cards: [] 
     };
     gSeasons[gs._id] = gs;
+    if (gs.end.getFullYear() && !gYears.includes(gs.end.getFullYear())) {
+      gYears.push(gs.end.getFullYear())
+    }
   }
+  gYears.sort((a, b) => a < b ? 1 : -1);
 
   let gPlayDates: { [key: number]: PlayDate } = {};
   for (let pd of playDates) {
@@ -248,7 +252,7 @@ export function getData(): LeagueData {
     }
 
     gGames[g.gameID] = gg;
-    gSeasons[g.sid].games[gg.division].push(gg);
+    gSeasons[g.sid].games.push(gg);
   }
 
   for (let s of standings) {
@@ -315,7 +319,8 @@ export function getData(): LeagueData {
     'teams': gTeams,
     'games': gGames,
     'fields': gFields,
-    'players': gPlayers
+    'players': gPlayers,
+    'years': gYears
   }
 
   return _grslData;
