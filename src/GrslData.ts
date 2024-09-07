@@ -8,7 +8,7 @@ import {
   seasons, 
   standings,
   teams,
- } from './assets/fulldata.json';
+ } from './assets/teamsGames.json';
 
 export interface Card {
   player: Player,
@@ -87,6 +87,7 @@ export interface Season {
 export interface Standings {
   team: Team,
   seed: number,
+  rank: number
   wins: number,
   losses: number,
   draws: number,
@@ -129,6 +130,7 @@ export interface LeagueData {
   'fields': { [key: number]: Field },
   'players': { [key: number]: Player},
   'years': number[],
+  'playDates': { [key: number]: PlayDate }
 }
 
 let _grslData: LeagueData | null = null;
@@ -258,6 +260,7 @@ export function getData(): LeagueData {
   for (let s of standings) {
     let gs: Standings = {
       team: gTeams[s.teamid],
+      rank: s.rank,
       seed: s.seed,
       wins: s.w,
       losses: s.l,
@@ -269,6 +272,7 @@ export function getData(): LeagueData {
       tiebreaker: s.tb,
       points: s.points
     }
+    
 
     let div = s.div as Division;
     if (s.tournament) {
@@ -320,7 +324,8 @@ export function getData(): LeagueData {
     'games': gGames,
     'fields': gFields,
     'players': gPlayers,
-    'years': gYears
+    'years': gYears,
+    'playDates': gPlayDates
   }
 
   return _grslData;

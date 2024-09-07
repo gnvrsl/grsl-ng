@@ -201,19 +201,19 @@ function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
                   >
                     <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
                   </Box>
-                  <MenuItem onClick={() => router.navigate('/')}>
+                  <MenuItem onClick={() => {router.navigate('/'); setOpen(false);}}>
                     Home
                   </MenuItem>
-                  <MenuItem onClick={() => router.navigate('/schedule')}>
+                  <MenuItem onClick={() => {router.navigate('/schedule'); setOpen(false);}}>
                     Schedule
                   </MenuItem>
-                  <MenuItem onClick={() => router.navigate('/standings')}>
+                  <MenuItem onClick={() => {router.navigate('/standings'); setOpen(false);}}>
                     Standings
                   </MenuItem>
-                  <MenuItem onClick={() => router.navigate('/teams')}>
+                  <MenuItem onClick={() => {router.navigate('/teams'); setOpen(false);}}>
                     Teams
                   </MenuItem>
-                  <MenuItem onClick={() => router.navigate('/info')}>
+                  <MenuItem onClick={() => {router.navigate('/info'); setOpen(false);}}>
                     Info
                   </MenuItem>
                   <Divider />

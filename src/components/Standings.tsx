@@ -77,6 +77,7 @@ export default function Standings() {
                         </TableCell>
                       </TableRow>
                       <TableRow>
+                        <TableCell>""</TableCell>
                         <TableCell>Team</TableCell>
                         <TableCell align="right">{medium ? "W" : "Wins"}</TableCell>
                         <TableCell align="right">{medium ? "D" : "Draws"}</TableCell>
@@ -96,6 +97,7 @@ export default function Standings() {
                         <TableRow
                           key={s.team.name}
                         >
+                          <TableCell>{s.rank}</TableCell>
                           <TableCell sx={{ 
                             minWidth: { sm: 100,  md: 200 },
                             fontSize: '1.1rem'  
@@ -115,7 +117,6 @@ export default function Standings() {
                           <TableCell align="right" sx={{ fontSize: '1.3rem'}}>{s.goalDifference}</TableCell>
                         </TableRow>
                       )}
-                      
                     </TableBody>
                   </Table>
                 </TableContainer>
