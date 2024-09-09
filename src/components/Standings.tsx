@@ -55,16 +55,23 @@ export default function Standings() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            pt: { xs: 14, sm: 20 },
+            pt: { xs: 10, sm: 14 },
             pb: { xs: 8, sm: 12 },
           }}
         >
           
-          <h1>
+          <Box sx={{ 
+            display: 'flex', 
+            flexDirection: 'row',
+            alignItems: 'center',
+            typography: 'h5',
+            }}>
             <IconButton onClick={prevSeason}><ArrowLeft /></IconButton>
-            {activeSeason.name} Standings
+            <Box sx={{ textAlign: 'center' }}>
+              {activeSeason.name} Standings
+            </Box>
             <IconButton onClick={nextSeason}><ArrowRight /></IconButton>
-          </h1>
+          </Box>
           { Object.entries(activeStandings).map(([division, lstanding]) => {
             if (lstanding.length) {
               return (
@@ -77,7 +84,7 @@ export default function Standings() {
                         </TableCell>
                       </TableRow>
                       <TableRow>
-                        <TableCell>""</TableCell>
+                        <TableCell></TableCell>
                         <TableCell>Team</TableCell>
                         <TableCell align="right">{medium ? "W" : "Wins"}</TableCell>
                         <TableCell align="right">{medium ? "D" : "Draws"}</TableCell>

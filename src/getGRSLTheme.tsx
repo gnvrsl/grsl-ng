@@ -157,18 +157,18 @@ const getDesignTokens = (mode: PaletteMode) => ({
       letterSpacing: -0.2,
     },
     h2: {
-      fontSize: 48,
+      fontSize: 32,
       fontWeight: 600,
       lineHeight: 1.2,
     },
     h3: {
-      fontSize: 42,
+      fontSize: 28,
       lineHeight: 1.2,
     },
     h4: {
-      fontSize: 36,
+      fontSize: 24,
       fontWeight: 500,
-      lineHeight: 1.5,
+      lineHeight: 1.2,
     },
     h5: {
       fontSize: 20,

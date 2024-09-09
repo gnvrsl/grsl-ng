@@ -92,10 +92,11 @@ export default function Schedule() {
       >
         <Container
           sx={{
-            pt: { xs: 14, sm: 20 },
+            pt: { xs: 10, sm: 14 },
             pb: { xs: 8, sm: 12 },
           }}
         >
+          <Box sx={{typography: 'h4'}}>Schedule</Box>
           <Box sx={{ display: 'flex', flexDirection: 'row'}}>
             <FormControl variant="standard" sx={{m: 1, minWidth: 80}}>
               <InputLabel id="year-label">Year</InputLabel>  

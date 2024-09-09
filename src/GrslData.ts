@@ -1,14 +1,17 @@
 import { 
-  cards,
   fields,
-  goals,
   schedule, 
   playDates,
-  players, 
   seasons, 
   standings,
   teams,
  } from './assets/teamsGames.json';
+
+ import {
+  cards,
+  goals,
+  players
+ } from './assets/playerData.json'
 
 export interface Card {
   player: Player,
@@ -134,6 +137,46 @@ export interface LeagueData {
 }
 
 let _grslData: LeagueData | null = null;
+
+export function getPlayerData(): LeagueData {
+  if (!_grslData) {
+    _grslData = getData();
+  }
+
+  let gPlayers = _grslData.players;
+  let gGames = _grslData.games;
+  let gTeams = _grslData.teams;
+
+  for (let c of cards) {
+    let gc: Card = {
+      player: gPlayers[c.pid],
+      game: gGames[c.gid],
+      color: c.color,
+      code: c.type,
+      paid: c.paid,
+      comment: c.comment,
+      team: c.tid ? gTeams[c.tid] : null
+    } 
+
+    gc.game.season.cards.push(gc);
+    gc.game.cards.push(gc);
+  }
+
+  for (let g of goals) {
+    let gg: Goal = {
+      player: gPlayers[g.pid],
+      game: gGames[g.gid],
+      team: g.tid ? gTeams[g.tid] : null,
+      count: g.numG
+    }
+
+    gg.game.season.goals.push(gg);
+    gg.game.goals.push(gg);
+  }
+
+  return _grslData;
+}
+
 
 export function getData(): LeagueData {
   if (_grslData) {
@@ -291,32 +334,7 @@ export function getData(): LeagueData {
     }
   }
 
-  for (let c of cards) {
-    let gc: Card = {
-      player: gPlayers[c.pid],
-      game: gGames[c.gid],
-      color: c.color,
-      code: c.type,
-      paid: c.paid,
-      comment: c.comment,
-      team: c.tid ? gTeams[c.tid] : null
-    } 
 
-    gc.game.season.cards.push(gc);
-    gc.game.cards.push(gc);
-  }
-
-  for (let g of goals) {
-    let gg: Goal = {
-      player: gPlayers[g.pid],
-      game: gGames[g.gid],
-      team: g.tid ? gTeams[g.tid] : null,
-      count: g.numG
-    }
-
-    gg.game.season.goals.push(gg);
-    gg.game.goals.push(gg);
-  }
 
   _grslData = {
     'seasons': gSeasons,
