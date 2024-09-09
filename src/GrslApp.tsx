@@ -11,7 +11,7 @@ import {
 import HomePage from './components/HomePage';
 import Standings from './components/Standings';
 import Schedule from './components/Schedule';
-
+import Teams from './components/Teams';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "schedule",
     element: <Schedule />
+  },
+  {
+    path: "teams",
+    element: <Teams />
   }
 ])
 

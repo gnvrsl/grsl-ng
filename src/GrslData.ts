@@ -67,7 +67,12 @@ export interface Team {
   jersey2: string | null,
   shorts1: string | null,
   shorts2: string | null,
-  active: boolean
+  active: boolean,
+  rating: number,
+  rank: number,
+  wins: number,
+  losses: number,
+  draws: number
 }
 
 // from seaasons
@@ -262,7 +267,12 @@ export function getData(): LeagueData {
       jersey2: t.jersey2,
       shorts1: t.shorts1,
       shorts2: t.shorts2,
-      active: t.active
+      active: t.active,
+      rating: t.rating,
+      rank: t.rank,
+      wins: t.wins,
+      losses: t.losses,
+      draws: t.draws
     }
   }
 
