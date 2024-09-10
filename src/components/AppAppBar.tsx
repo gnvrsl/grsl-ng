@@ -7,6 +7,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
+import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Drawer from '@mui/material/Drawer';
@@ -217,7 +218,11 @@ function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
                     Info
                   </MenuItem>
                   <Divider />
-                  <MenuItem>
+                  <MenuItem sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'flex-start',
+                  }}>
                     <IconButton
                       color="inherit"
                       href="https://www.facebook.com/grslsoccer"
@@ -226,8 +231,6 @@ function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
                     >
                       <FacebookIcon />
                     </IconButton>
-                  </MenuItem>
-                  <MenuItem>
                     <IconButton
                       color="inherit"
                       href="https://www.instagram.com/gvilleregionalsoccerleague/"
@@ -236,6 +239,9 @@ function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
                     >
                       <InstagramIcon />
                     </IconButton>
+                  </MenuItem>
+                  <MenuItem>
+                    Contact us: <Link href="mailto:grslboard@gmail.com">grslboard@gmail.com</Link>                  
                   </MenuItem>
                 </Box>
               </Drawer>
