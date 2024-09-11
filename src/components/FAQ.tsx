@@ -63,7 +63,7 @@ export default function FAQ() {
               sx={{ maxWidth: { sm: '100%', md: '70%' } }}
             >
               You can reach our customer support team by emailing
-              <Link> support@email.com </Link>
+              <Link href="mailto:grslboard@gmail.com"> grslboard@gmail.com </Link>
               or calling our toll-free number. We&apos;re here to assist you
               promptly.
             </Typography>
@@ -88,9 +88,7 @@ export default function FAQ() {
               gutterBottom
               sx={{ maxWidth: { sm: '100%', md: '70%' } }}
             >
-              Absolutely! We offer a hassle-free return policy. If you&apos;re not
-              completely satisfied, you can return the product within [number of
-              days] days for a full refund or exchange.
+              No, sorry.  Most people are just bad at soccer, it is nothing to be ashamed of.
             </Typography>
           </AccordionDetails>
         </Accordion>
@@ -113,9 +111,8 @@ export default function FAQ() {
               gutterBottom
               sx={{ maxWidth: { sm: '100%', md: '70%' } }}
             >
-              Our product distinguishes itself through its adaptability, durability,
-              and innovative features. We prioritize user satisfaction and
-              continually strive to exceed expectations in every aspect.
+              Most soccer leagues cater to children, but our league is for differently aged players who are no longer 
+              eligible to play in the youth leagues.
             </Typography>
           </AccordionDetails>
         </Accordion>
@@ -138,10 +135,7 @@ export default function FAQ() {
               gutterBottom
               sx={{ maxWidth: { sm: '100%', md: '70%' } }}
             >
-              Yes, our product comes with a [length of warranty] warranty. It covers
-              defects in materials and workmanship. If you encounter any issues
-              covered by the warranty, please contact our customer support for
-              assistance.
+              
             </Typography>
           </AccordionDetails>
         </Accordion>
