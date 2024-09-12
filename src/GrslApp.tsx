@@ -9,14 +9,22 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import HomePage from './components/HomePage';
+import Info from './components/Info';
 import Standings from './components/Standings';
 import Schedule from './components/Schedule';
 import Teams from './components/Teams';
+import TeamPage from './components/TeamPage';
+import ErrorPage from './components/ErrorPage';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage />
+    element: <HomePage />,
+    errorElement: <ErrorPage />
+  },
+  { 
+    path: "info",
+    element: <Info />
   },
   {
     path: "standings",
@@ -29,6 +37,10 @@ const router = createBrowserRouter([
   {
     path: "teams",
     element: <Teams />
+  },
+  {
+    path: "team/:code",
+    element: <TeamPage />
   }
 ])
 

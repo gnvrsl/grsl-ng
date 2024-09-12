@@ -10,13 +10,14 @@ import {
   FormControl,
   InputLabel,
   Select,
-  MenuItem,
+  MenuItem
 } from '@mui/material';
 import Footer from './Footer';
 import { getData } from '../GrslData';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 
 export default function Teams() {
@@ -100,7 +101,7 @@ export default function Teams() {
                     minWidth: { sm: 100,  md: 200 },
                     fontSize: '1.1rem'  
                   }}>
-                    {short ? t.code : t.name}
+                    <Link to={'/team/' + t.code}>{short ? t.code : t.name}</Link>
                   </TableCell>
                   <TableCell align="right" sx={{ fontSize: '1.4rem', fontWeight: 'medium' }}>{t.rating.toFixed(1)}</TableCell>
                   <TableCell align="right" sx={{ fontSize: '1.3rem'}}>{t.wins}</TableCell>
