@@ -1,4 +1,4 @@
-import { Container, Box, Typography, Card, CardContent, Link } from '@mui/material';
+import { Container, Box, Typography } from '@mui/material';
 import Footer from './Footer';
 
 export default function Info() {

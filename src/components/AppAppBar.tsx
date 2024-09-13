@@ -40,6 +40,7 @@ function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
     setOpen(newOpen);
   };
 
+  /** 
   const scrollToSection = (sectionId: string) => {
     const sectionElement = document.getElementById(sectionId);
     const offset = 128;
@@ -53,6 +54,7 @@ function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
       setOpen(false);
     }
   };
+  */
 
   const theme = useTheme();
   const smallScreen = useMediaQuery(theme.breakpoints.down('sm'));

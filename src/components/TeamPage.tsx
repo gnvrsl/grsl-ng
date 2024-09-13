@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import ShirtIcon from "./ShirtIcon";
 import GameLine from "./GameLine";
+import Footer from "./Footer";
 
 export default function TeamPage() {
   const params = useParams();
@@ -105,8 +106,8 @@ export default function TeamPage() {
             <Box sx={{}}>{team.name}</Box> <Box sx={teamCodeStyle}>{team.code}</Box>
           </Box>
           <Card sx={{
-            gridColumn: '3',
-            gridRow: '1 / 3',
+            gridColumn: { xs: '1 /  4', md: '3' },
+            gridRow: { xs: '2', md: '1 / 3'},
 
           }}>
             <CardContent>
@@ -185,6 +186,7 @@ export default function TeamPage() {
           </TableContainer>   
         </Box>    
       </Container>
+      <Footer />
     </>
   )
 }
