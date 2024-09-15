@@ -10,10 +10,11 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { Link as RouterLink } from 'react-router-dom';
 
 interface GameLineProps {
-  game: Game
+  game: Game,
+  includeDate?: boolean
 }
 
-export default function GameLine({ game} : GameLineProps) {
+export default function GameLine({ game, includeDate} : GameLineProps) {
   const gameTypes = { 
     r: ['Group', 'Group Stage'], 
     s: ['Semi', 'Semifinal'], 
@@ -49,6 +50,14 @@ export default function GameLine({ game} : GameLineProps) {
       atColor = 'primary';
     }
   }
+
+  function timeString(date: Date) {
+    let timeStr = date.toLocaleTimeString(undefined, {hour12: true, timeStyle: "short"});
+    timeStr = timeStr.replace(' AM', 'am').replace(' PM', 'pm');
+    return timeStr;
+  }
+
+  const short = useMediaQuery(theme.breakpoints.down('sm'));
   
   return (
     <Box sx={{
@@ -57,12 +66,25 @@ export default function GameLine({ game} : GameLineProps) {
       flexDirection: 'row'}}>
       <Box sx={{flex: 1, display: 'flex', flexDirection: 'row'}}>
         <Stack sx={{ flex: 1 }}>
-          <Box sx={{typography: 'subtitle1'}}>
+          <Box sx={{typography: 'subtitle1', fontSize: {xs: '.8rem', sm: '.9rem', md: '1rem'}}}>
             { mediumNames ? game.field.code : game.field.name}
           </Box>
-          <Box sx={{typography: 'subtitle1'}}>
-            {game.date.toLocaleTimeString(undefined, {hour12: true, timeStyle: "short"})}
-          </Box>
+          { includeDate ? 
+            <>
+              <Box sx={{typography: 'subtitle1', fontSize: {xs: '.8rem', sm: '.9rem', md: '1rem'}}}>
+                {game.date.toLocaleDateString()}
+                { !short && timeString(game.date)}
+              </Box>
+              <Box sx={{typography: 'subtitle1', fontSize: {xs: '.8rem', sm: '.9rem', md: '1rem'}}}>
+                { short && timeString(game.date)}
+              </Box>
+            </>
+            :
+            <Box sx={{typography: 'subtitle1'}}>
+              {game.date.toLocaleTimeString(undefined, {hour12: true, timeStyle: "short"})}
+            </Box>
+          }
+
         </Stack>
         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
           <Link component={RouterLink} 

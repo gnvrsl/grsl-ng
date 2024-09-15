@@ -110,7 +110,8 @@ export default function Standings() {
                             to={'/team/' + s.team.code} 
                             sx={{ 
                               textDecoration: 'none', 
-                              color: 'inherit',
+                              typography: 'h5',
+                              color: 'primary',
                               fontFamily: { xs: 'monospace', sm: 'poppins'}
                             }}>
                           {short ? s.team.code : s.team.name}

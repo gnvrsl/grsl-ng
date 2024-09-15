@@ -1,4 +1,6 @@
+import * as React from "react";
 import { useParams } from "react-router-dom";
+import { useState } from "react";
 import { getPlayerData, Season, Standings, Player } from "../GrslData";
 import {
   Box, 
@@ -6,6 +8,8 @@ import {
   CardContent, 
   Container,
   Divider,
+  Tab,
+  Tabs,
   Table, 
   TableBody, 
   TableCell, 
@@ -13,11 +17,43 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import Grid from '@mui/material/Unstable_Grid2';
 import ShirtIcon from "./ShirtIcon";
 import GameLine from "./GameLine";
 import Footer from "./Footer";
 
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+}
+
+function CustomTabPanel(props: TabPanelProps) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+    </div>
+  );
+}
+
+function a11yProps(index: number) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
+
 export default function TeamPage() {
+  const [tabValue, setTabValue] = useState(0);
   const params = useParams();
   const grslData = getPlayerData();
   const tc = params.code?.toLowerCase();
@@ -104,6 +140,10 @@ export default function TeamPage() {
   const cardsGoalsList = Object.values(cardCounts).sort((a, b) => 
     a.goals < b.goals ? 1 : -1);
 
+  const handleTabChange = (_: React.SyntheticEvent, newValue: number) => {
+    setTabValue(newValue);
+  };
+
 
   const teamCodeStyle = {
     fontFamily: 'monospace',
@@ -125,15 +165,11 @@ export default function TeamPage() {
         }}
       >
         <Box sx={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(3, 1fr)', 
-          gridAutoRows: 'auto',
           width: '100%'
         }}>
           <Box sx={{
-            gridColumn: '1 / 3',
             display: 'flex', 
-            flexDirection: 'row', 
+            flexDirection: {xs: 'column', sm: 'row'}, 
             typography: 'h4', 
             width: '100%'}}>
             <Box sx={{}}>{team.name}</Box> <Box sx={teamCodeStyle}>{team.code}</Box>
@@ -148,128 +184,120 @@ export default function TeamPage() {
             </Box>
           </Box>
           <Card sx={{
-            gridColumn: { xs: '1 /  4', md: '3' },
-            gridRow: { xs: '2', md: '1 / 3'},
-
           }}>
             <CardContent>
-              <Box sx={{mb: 1}}>
-                <Box sx={{ typography: 'caption' }}>Captain</Box>
-                <Box>{team.captain1?.firstName} {team.captain1?.lastName}</Box>
-                <Box>{team.captain2?.firstName} {team.captain2?.lastName}</Box>
-              </Box>
-              <Box sx={{mb: 1}}>
-                <Box sx={{ typography: 'caption' }}>Recent Season</Box>
-                {teamStandings[0].season.name},
-                Division {teamStandings[0].division.toUpperCase()}
-              </Box>
-              <Box sx={{mb: 1}}>
-                <Box sx={{ typography: 'caption' }}>All-time Record</Box>
-                 {team.wins}W - {team.draws}D - {team.losses}L
-              </Box>  
-              <Box sx={{mb: 1}}>
-                <Box sx={{ typography: 'caption' }}>Rank</Box>
-                {team.rank} ({team.rating.toFixed(1)})
-              </Box>
-              <Box sx={{mb: 1}}>
-                <Box sx={{ typography: 'caption' }}>Primary Shirt</Box>
-                <ShirtIcon shirtColor={team.jersey1} />
-              </Box>
+              <Grid container spacing={2}>
+                <Grid xs={6} sm={4} md={2}>
+                  <Box sx={{ typography: 'caption' }}>Captain(s)</Box>
+                  <Box>{ team.captain1 ? team.captain1?.firstName + " " + team.captain1?.lastName: "N/A"}</Box>
+                  <Box>{team.captain2?.firstName} {team.captain2?.lastName}</Box>
+                </Grid>
+                <Grid xs={6} sm={4} md={2}>
+                  <Box sx={{ typography: 'caption' }}>Primary Shirt</Box>
+                  <ShirtIcon shirtColor={team.jersey1} />
+                </Grid>
+                <Grid xs={6} sm={4} md={2}>
+                  <Box sx={{ typography: 'caption' }}>All-time Record</Box>
+                  {team.wins}W - {team.draws}D - {team.losses}L
+                </Grid>  
+                <Grid xs={6} sm={4} md={2}>
+                  <Box sx={{ typography: 'caption' }}>Recent Season</Box>
+                  {teamStandings[0].season.name}             
+                </Grid>
+                <Grid xs={6} sm={4} md={2}>
+                  <Box sx={{ typography: 'caption' }}>Season Standing</Box>
+                  {teamStandings[0].standings.rank}, Division {teamStandings[0].division.toUpperCase()}
+                </Grid>
+
+                <Grid xs={6} sm={4} md={2}>
+                  <Box sx={{ typography: 'caption' }}>Rank</Box>
+                  {team.rank} ({team.rating.toFixed(1)})
+                </Grid>
+                <Grid xs={6} sm={4} md={2}>
+                  <Box sx={{typography: 'caption'}}>Card Points</Box>
+                  <Box>{cardPoints}</Box>
+                </Grid>
+              </Grid>
             </CardContent>          
           </Card>
-          <Box
-            sx={{
-              gridColumn: '1',
-              gridRow: { xs: 3, md: 2},
-              mt: 2
-          }}>
-            <Box>
-              <Box sx={{typography: 'caption'}}>Field Lining</Box>
-              <Box>
-                N/A
-              </Box>
+          
+          <Box sx={{ width: '100%' }}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+              <Tabs value={tabValue} onChange={handleTabChange} aria-label="team data tabs">
+                <Tab label="Schedule" {...a11yProps(0)} />
+                <Tab label="Stats" {...a11yProps(1)} />
+                <Tab label="History" {...a11yProps(2)} />
+              </Tabs>
             </Box>
-            <Box>
-              <Box sx={{typography: 'caption'}}>Suspensions</Box>
-              <Box>N/A</Box>
-            </Box>
-            <Box>
-              <Box sx={{typography: 'caption'}}>Card Points</Box>
-              <Box>{cardPoints}</Box>
-            </Box>
-          </Box>
-          <TableContainer id="cards"
-            sx={{ 
-              gridColumn: { xs: 1, md: 2},
-              gridRow: { xs: 4, md: 2},
-          }}>
-
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Player</TableCell>
-                  <TableCell align="right">Goals</TableCell>
-                  <TableCell align="right">YC</TableCell>
-                  <TableCell align="right">RC</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {cardsGoalsList.map(c => 
-                  <TableRow key={c.player._id}>
-                    <TableCell>{c.player.firstName} {c.player.lastName}</TableCell>
-                    <TableCell align="right">{c.goals}</TableCell>
-                    <TableCell align="right">{c.yellow}</TableCell>
-                    <TableCell align="right">{c.red}</TableCell>
-                  </TableRow>
+            <CustomTabPanel value={tabValue} index={0}>
+              <Box id="recent-games" sx={{ width: "100%", mb: 4 }}>
+                {teamGames.map(g =>
+                <React.Fragment key={g._id}>
+                  <GameLine game={g} includeDate={true} />
+                  <Divider />
+                </React.Fragment>  
                 )}
-              </TableBody>
-            </Table>  
-          </TableContainer>
-        </Box>
-
-        <Box id="recent-games" sx={{ width: "100%", mb: 4 }}>
-          <Box sx={{typography: 'h5', mt: 3}}>{season.name}</Box>
-            {teamGames.map(g =>
-            <>
-              <GameLine game={g} />
-              <Divider />
-            </>  
-            )}
-          </Box>  
-        <Box id="standings">
-          <TableContainer>
-            <Table sx={{ maxWidth: { lg: 80, md: 100 }, mb: 2}}>
-              <TableHead>
-                <TableRow>
-                  <TableCell align="center" colSpan={8} sx={{typography: 'subtitle2'}}>
-                    Seasons
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell sx={{ minWidth: { sm: 100, md: 180}}}>Season</TableCell>
-                  <TableCell>Div.</TableCell>
-                  <TableCell>Rank</TableCell>
-                  <TableCell>Wins</TableCell>
-                  <TableCell>Draws</TableCell>
-                  <TableCell>Losses</TableCell>
-                  <TableCell>Points</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {teamStandings.map(s =>
-                  <TableRow key={s.season._id + s.division + (s.group || '')}>
-                    <TableCell>{s.tournament ? s.season.name + " - T" : s.season.name}</TableCell>
-                    <TableCell>{s.tournament ? s.division.toUpperCase() + s.group : s.division.toUpperCase()}</TableCell>
-                    <TableCell>{s.standings.rank}</TableCell>
-                    <TableCell>{s.standings.wins}</TableCell>
-                    <TableCell>{s.standings.draws}</TableCell>
-                    <TableCell>{s.standings.losses}</TableCell>
-                    <TableCell>{s.standings.points}</TableCell>
-                  </TableRow>)}
-              </TableBody>
-            </Table>
-          </TableContainer>   
-        </Box>    
+              </Box> 
+            </CustomTabPanel>
+            <CustomTabPanel value={tabValue} index={1}>
+              <TableContainer id="cards"
+              sx={{ 
+                gridColumn: { xs: 1, md: 2},
+                gridRow: { xs: 4, md: 2},
+              }}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Player</TableCell>
+                      <TableCell align="right">Goals</TableCell>
+                      <TableCell align="right">YC</TableCell>
+                      <TableCell align="right">RC</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {cardsGoalsList.map(c => 
+                      <TableRow key={c.player._id}>
+                        <TableCell>{c.player.firstName} {c.player.lastName}</TableCell>
+                        <TableCell align="right">{c.goals}</TableCell>
+                        <TableCell align="right">{c.yellow}</TableCell>
+                        <TableCell align="right">{c.red}</TableCell>
+                      </TableRow>
+                    )}
+                  </TableBody>
+                </Table>  
+              </TableContainer>
+            </CustomTabPanel>
+            <CustomTabPanel value={tabValue} index={2}>
+              <TableContainer>
+                <Table sx={{}}>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell sx={{ minWidth: { sm: 100, md: 180}}}>Season</TableCell>
+                      <TableCell>Div.</TableCell>
+                      <TableCell align="right">Rank</TableCell>
+                      <TableCell align="right">Wins</TableCell>
+                      <TableCell align="right">Draws</TableCell>
+                      <TableCell align="right">Losses</TableCell>
+                      <TableCell align="right">Points</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {teamStandings.map(s =>
+                      <TableRow key={s.season._id + s.division + (s.group || '')}>
+                        <TableCell sx={{ fontSize: '1.1rem'}}>{s.tournament ? s.season.name + " - T" : s.season.name}</TableCell>
+                        <TableCell sx={{ fontSize: '1.1rem'}}>{s.tournament ? s.division.toUpperCase() + s.group : s.division.toUpperCase()}</TableCell>
+                        <TableCell align="right" sx={{ fontSize: '1.6rem', fontWeight: 'medium'}}>{s.standings.rank}</TableCell>
+                        <TableCell align="right" sx={{ fontSize: '1.3rem'}}>{s.standings.wins}</TableCell>
+                        <TableCell align="right" sx={{ fontSize: '1.3rem'}}>{s.standings.draws}</TableCell>
+                        <TableCell align="right" sx={{ fontSize: '1.3rem'}}>{s.standings.losses}</TableCell>
+                        <TableCell align="right" sx={{ fontSize: '1.3rem'}}>{s.standings.points}</TableCell>
+                      </TableRow>)}
+                  </TableBody>
+                </Table>
+              </TableContainer> 
+            </CustomTabPanel>
+          </Box>
+        </Box> 
       </Container>
       <Footer />
     </>
