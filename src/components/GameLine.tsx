@@ -14,11 +14,6 @@ interface GameLineProps {
 }
 
 export default function GameLine({ game} : GameLineProps) {
-  const teamNameStyle = { 
-    typography: 'h5', 
-    m: 1
-  };
-
   const gameTypes = { 
     r: ['Group', 'Group Stage'], 
     s: ['Semi', 'Semifinal'], 

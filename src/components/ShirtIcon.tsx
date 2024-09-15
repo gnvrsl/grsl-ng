@@ -76,6 +76,6 @@ export default function ShirtIcon(props: ShirtIconProps) {
   }
 
   return (
-    <img src={jerseyUrl} alt={props.shirtColor + " colored shirt"} />
+    <img style={{height: 50}} src={jerseyUrl} alt={props.shirtColor + " colored shirt"} />
   )
 }

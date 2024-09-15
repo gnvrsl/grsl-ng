@@ -23,6 +23,27 @@ export interface Card {
   team: Team | null
 }
 
+// from CRSchedule and CRTSchedule tables
+export interface Game {
+  _id: number,
+  gameTime: Date,
+  date: Date,
+  playDate: PlayDate,
+  homeTeam: Team,
+  awayTeam: Team,
+  homeScore: number | null,
+  awayScore: number | null,
+  forfeit: boolean,
+  field: Field,
+  division: Division,
+  recorded: boolean,
+  gameType: GameType,
+  tournament: boolean,
+  goals: Goal[],
+  cards: Card[],
+  season: Season
+}
+
 export interface Goal {
   player: Player,
   game: Game,
@@ -72,7 +93,8 @@ export interface Team {
   rank: number,
   wins: number,
   losses: number,
-  draws: number
+  draws: number,
+  seasons: Season[]
 }
 
 // from seaasons
@@ -107,26 +129,6 @@ export interface Standings {
   points: number
 }
 
-// from CRSchedule and CRTSchedule tables
-export interface Game {
-  _id: number,
-  gameTime: Date,
-  date: Date,
-  playDate: PlayDate,
-  homeTeam: Team,
-  awayTeam: Team,
-  homeScore: number | null,
-  awayScore: number | null,
-  forfeit: boolean,
-  field: Field,
-  division: Division,
-  recorded: boolean,
-  gameType: GameType,
-  tournament: boolean,
-  goals: Goal[],
-  cards: Card[],
-  season: Season
-}
 
 type Division = "a" | "b" | "c";
 type GameType = "r" | "s" | "f" | "t" | "";
@@ -138,7 +140,7 @@ export interface LeagueData {
   'fields': { [key: number]: Field },
   'players': { [key: number]: Player},
   'years': number[],
-  'playDates': { [key: number]: PlayDate }
+  'playDates': { [key: number]: PlayDate },
 }
 
 let _grslData: LeagueData | null = null;
@@ -146,6 +148,10 @@ let _grslData: LeagueData | null = null;
 export function getPlayerData(): LeagueData {
   if (!_grslData) {
     _grslData = getData();
+  }
+
+  if (_grslData.seasons[32].cards.length > 0) {
+    return _grslData;
   }
 
   let gPlayers = _grslData.players;
@@ -272,8 +278,11 @@ export function getData(): LeagueData {
       rank: t.rank,
       wins: t.wins,
       losses: t.losses,
-      draws: t.draws
+      draws: t.draws,
+      seasons: []
     }
+
+
   }
 
   let gGames: { [key: number]: Game } = {};
@@ -344,6 +353,20 @@ export function getData(): LeagueData {
     }
   }
 
+  // Populate team seasons
+  for (let s of Object.values(gSeasons)) {
+    for (let st of Object.values(s.standings)) {
+      let tids = st.map(s => s.team._id);
+      for (let t of tids) {
+        gTeams[t].seasons.push(s);
+      }
+    }
+  }
+
+  // Sort team seasons
+  for (let t of Object.values(gTeams)) {
+    t.seasons.sort((a, b) => a.end < b.end ? 1 : -1);
+  }
 
 
   _grslData = {

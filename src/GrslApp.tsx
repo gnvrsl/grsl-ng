@@ -40,7 +40,8 @@ const router = createBrowserRouter([
   },
   {
     path: "team/:code",
-    element: <TeamPage />
+    element: <TeamPage />,
+    errorElement: <ErrorPage />
   }
 ])
 

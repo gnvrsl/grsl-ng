@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { getData, Season, Standings } from "../GrslData";
+import { getPlayerData, Season, Standings, Player } from "../GrslData";
 import {
   Box, 
   Card, 
@@ -7,6 +7,7 @@ import {
   Container,
   Divider,
   Table, 
+  TableBody, 
   TableCell, 
   TableContainer,
   TableHead,
@@ -18,11 +19,13 @@ import Footer from "./Footer";
 
 export default function TeamPage() {
   const params = useParams();
-  const grslData = getData();
+  const grslData = getPlayerData();
   const tc = params.code?.toLowerCase();
 
   const team = Object.values(grslData.teams).find(t => t.code.toLowerCase() == tc);
   if (!team) throw new Error(`Team ${params.code} not found`);
+
+  const season = team.seasons[0];
 
   interface TeamStandings {
     season: Season;
@@ -69,8 +72,38 @@ export default function TeamPage() {
   });    
 
   // Team games
-  const teamGames = Object.values(grslData.games).filter(g => g.homeTeam._id == team._id || g.awayTeam._id == team._id);
-  const recentGames = teamGames.reverse().slice(0, 10);
+  const teamGames = Object.values(grslData.games).filter(g => 
+    (g.homeTeam._id == team._id || g.awayTeam._id == team._id) && g.season._id == season._id);
+
+  // Cards
+  const teamCards = season.cards.filter(c => c.team?._id == team._id);
+  const cardPoints = teamCards.reduce((prev, cur) => prev + (cur.color == 'r' ? 3 : 1), 0);
+
+  const cardCounts: { [key: number] : {player: Player, yellow: number, red: number, goals: number}} = {};
+  for (const card of teamCards) {
+    if (!cardCounts[card.player._id]) {
+      cardCounts[card.player._id] = { player: card.player, red: 0, yellow: 0, goals: 0 };
+    }
+    if (card.color == 'r') {
+      cardCounts[card.player._id].red++;
+    } else {
+      cardCounts[card.player._id].yellow++;
+    }
+  }
+
+  // Goals  
+  const teamGoals = season.goals.filter(g => g.team?._id == team._id);
+  for (const goal of teamGoals) {
+    if (!cardCounts[goal.player._id]) {
+      cardCounts[goal.player._id] = { player: goal.player, red: 0, yellow: 0, goals: 0 };
+    }
+    cardCounts[goal.player._id].goals++;
+  }
+
+
+  const cardsGoalsList = Object.values(cardCounts).sort((a, b) => 
+    a.goals < b.goals ? 1 : -1);
+
 
   const teamCodeStyle = {
     fontFamily: 'monospace',
@@ -104,6 +137,15 @@ export default function TeamPage() {
             typography: 'h4', 
             width: '100%'}}>
             <Box sx={{}}>{team.name}</Box> <Box sx={teamCodeStyle}>{team.code}</Box>
+            <Box sx={{
+              typography: 'h5', 
+              flex: 1, 
+              textAlign: 'right',
+              mr: 2,
+              mt: 2
+            }}>
+                {season.name}
+            </Box>
           </Box>
           <Card sx={{
             gridColumn: { xs: '1 /  4', md: '3' },
@@ -135,17 +177,59 @@ export default function TeamPage() {
               </Box>
             </CardContent>          
           </Card>
-          <Box id="schedule">
-    
+          <Box
+            sx={{
+              gridColumn: '1',
+              gridRow: { xs: 3, md: 2},
+              mt: 2
+          }}>
+            <Box>
+              <Box sx={{typography: 'caption'}}>Field Lining</Box>
+              <Box>
+                N/A
+              </Box>
+            </Box>
+            <Box>
+              <Box sx={{typography: 'caption'}}>Suspensions</Box>
+              <Box>N/A</Box>
+            </Box>
+            <Box>
+              <Box sx={{typography: 'caption'}}>Card Points</Box>
+              <Box>{cardPoints}</Box>
+            </Box>
           </Box>
+          <TableContainer id="cards"
+            sx={{ 
+              gridColumn: { xs: 1, md: 2},
+              gridRow: { xs: 4, md: 2},
+          }}>
 
-          <Box id="roster">
-          
-          </Box>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Player</TableCell>
+                  <TableCell align="right">Goals</TableCell>
+                  <TableCell align="right">YC</TableCell>
+                  <TableCell align="right">RC</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {cardsGoalsList.map(c => 
+                  <TableRow key={c.player._id}>
+                    <TableCell>{c.player.firstName} {c.player.lastName}</TableCell>
+                    <TableCell align="right">{c.goals}</TableCell>
+                    <TableCell align="right">{c.yellow}</TableCell>
+                    <TableCell align="right">{c.red}</TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>  
+          </TableContainer>
         </Box>
+
         <Box id="recent-games" sx={{ width: "100%", mb: 4 }}>
-          <Box sx={{typography: 'h5', mt: 3}}>Recent Games</Box>
-            {recentGames.map(g =>
+          <Box sx={{typography: 'h5', mt: 3}}>{season.name}</Box>
+            {teamGames.map(g =>
             <>
               <GameLine game={g} />
               <Divider />
@@ -161,27 +245,28 @@ export default function TeamPage() {
                     Seasons
                   </TableCell>
                 </TableRow>
+                <TableRow>
+                  <TableCell sx={{ minWidth: { sm: 100, md: 180}}}>Season</TableCell>
+                  <TableCell>Div.</TableCell>
+                  <TableCell>Rank</TableCell>
+                  <TableCell>Wins</TableCell>
+                  <TableCell>Draws</TableCell>
+                  <TableCell>Losses</TableCell>
+                  <TableCell>Points</TableCell>
+                </TableRow>
               </TableHead>
-              <TableRow>
-                <TableCell sx={{ minWidth: { sm: 100, md: 180}}}>Season</TableCell>
-                <TableCell>Div.</TableCell>
-                <TableCell>Rank</TableCell>
-                <TableCell>Wins</TableCell>
-                <TableCell>Draws</TableCell>
-                <TableCell>Losses</TableCell>
-                <TableCell>Points</TableCell>
-              </TableRow>
-            
-            {teamStandings.map(s =>
-              <TableRow key={s.season._id + s.division + (s.group || '')}>
-                <TableCell>{s.tournament ? s.season.name + " - T" : s.season.name}</TableCell>
-                <TableCell>{s.tournament ? s.division.toUpperCase() + s.group : s.division.toUpperCase()}</TableCell>
-                <TableCell>{s.standings.rank}</TableCell>
-                <TableCell>{s.standings.wins}</TableCell>
-                <TableCell>{s.standings.draws}</TableCell>
-                <TableCell>{s.standings.losses}</TableCell>
-                <TableCell>{s.standings.points}</TableCell>
-              </TableRow>)}
+              <TableBody>
+                {teamStandings.map(s =>
+                  <TableRow key={s.season._id + s.division + (s.group || '')}>
+                    <TableCell>{s.tournament ? s.season.name + " - T" : s.season.name}</TableCell>
+                    <TableCell>{s.tournament ? s.division.toUpperCase() + s.group : s.division.toUpperCase()}</TableCell>
+                    <TableCell>{s.standings.rank}</TableCell>
+                    <TableCell>{s.standings.wins}</TableCell>
+                    <TableCell>{s.standings.draws}</TableCell>
+                    <TableCell>{s.standings.losses}</TableCell>
+                    <TableCell>{s.standings.points}</TableCell>
+                  </TableRow>)}
+              </TableBody>
             </Table>
           </TableContainer>   
         </Box>    
