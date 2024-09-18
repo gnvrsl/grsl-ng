@@ -15,6 +15,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ToggleColorMode from './ToggleColorMode';
 import grslLogoUrl from '../assets/grsl-logos/Horizontal-Full.png';
 import grslShieldUrl from '../assets/grsl-logos/Shield-NavyBlue.png';
+import grslShieldUrl2 from '../assets/grsl-logos/Primary-GRSL.png';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import { useTheme } from '@mui/material/styles';
@@ -70,10 +71,12 @@ function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
           mt: 2,
         }}
       >
-        <Container maxWidth="lg">
+
+        <Container maxWidth="lg" sx={{ display: 'flex', flexDirection: 'row'}}>
           <Toolbar
             variant="regular"
             sx={(theme) => ({
+              flex: 1,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
@@ -93,6 +96,15 @@ function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
                   : '0 0 1px rgba(2, 31, 59, 0.7), 1px 1.5px 2px -1px rgba(2, 31, 59, 0.65), 4px 4px 12px -2.5px rgba(2, 31, 59, 0.65)',
             })}
           >
+            <Box id="imageSpacer" sx={{ width: '110px', position: 'relative' }}>
+              <img src={grslShieldUrl2} 
+                style={{ 
+                  height: '82px',
+                  position: 'absolute', 
+                  zIndex: 3, 
+                  top: -42,
+                }} alt="GRSL logo" />
+            </Box>
             <Box
               sx={{
                 flexGrow: 1,
@@ -102,11 +114,6 @@ function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
                 px: 0,
               }}
             >
-              <img
-                src={smallScreen ? grslShieldUrl : grslLogoUrl}
-                style={logoStyle}
-                alt="GRSL logo"
-              />
               <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                 <MenuItem
                   onClick={() => router.navigate("/")}
