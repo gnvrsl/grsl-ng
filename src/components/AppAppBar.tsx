@@ -13,9 +13,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import ToggleColorMode from './ToggleColorMode';
-import grslLogoUrl from '../assets/grsl-logos/Horizontal-Full.png';
-import grslShieldUrl from '../assets/grsl-logos/Shield-NavyBlue.png';
-import grslShieldUrl2 from '../assets/grsl-logos/Primary-GRSL.png';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import { useTheme } from '@mui/material/styles';
@@ -97,13 +94,19 @@ function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
             })}
           >
             <Box id="imageSpacer" sx={{ width: '110px', position: 'relative' }}>
-              <img src={grslShieldUrl2} 
+              <a onClick={() => router.navigate('/')}
                 style={{ 
-                  height: '82px',
                   position: 'absolute', 
                   zIndex: 3, 
                   top: -42,
+                }}>
+              <img src="/Primary-GRSL.png"
+                onClick={() => router.navigate('/')}
+                style={{ 
+                  height: '82px',
+                  cursor: 'pointer'
                 }} alt="GRSL logo" />
+              </a>
             </Box>
             <Box
               sx={{
@@ -148,11 +151,11 @@ function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
                   </Typography>
                 </MenuItem>
                 <MenuItem
-                  onClick={() => router.navigate("/info")}
+                  onClick={() => router.navigate("/about")}
                   sx={{ py: '6px', px: '12px' }}
                 >
                   <Typography variant="body2" color="text.primary">
-                    Info
+                    About
                   </Typography>
                 </MenuItem>
               </Box>
@@ -223,8 +226,8 @@ function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
                   <MenuItem onClick={() => {router.navigate('/teams'); setOpen(false);}}>
                     Teams
                   </MenuItem>
-                  <MenuItem onClick={() => {router.navigate('/info'); setOpen(false);}}>
-                    Info
+                  <MenuItem onClick={() => {router.navigate('/about'); setOpen(false);}}>
+                    About
                   </MenuItem>
                   <Divider />
                   <MenuItem sx={{
