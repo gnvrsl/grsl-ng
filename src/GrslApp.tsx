@@ -3,7 +3,7 @@ import { PaletteMode } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import AppAppBar from './components/AppAppBar';
-import getGRSLTheme from './getLPTheme';
+import getGRSLTheme from './getGRSLTheme';
 import {
   createBrowserRouter,
   RouterProvider,

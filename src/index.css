@@ -1,3 +1,23 @@
-body {
-  background-image: url('/src/assets/tinypeople2png');
+@keyframes rollIn {
+  0% {
+    transform: translateX(-75vw) rotate(-800deg);
+  }
+
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
+}
+
+@keyframes rollBounce {
+  0% {
+    transform: translateX(-75vw) rotate(-800deg);
+  }
+
+  60% {
+    transform: translateX(300px) rotate(250deg);
+  }
+
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
 }

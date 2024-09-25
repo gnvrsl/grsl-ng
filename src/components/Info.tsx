@@ -1,6 +1,6 @@
 import { Container, Box, Typography, Card, CardContent, CardMedia } from '@mui/material';
 import Footer from './Footer';
-import blueBall from '../assets/about/blueball.png';
+import blueBall from '../assets/about/blueball2.png';
 import jasonImage from '../assets/about/jason.jpg';
 import fpReopening from '../assets/about/fp-reopening.jpeg';
 import bishopHuddle from '../assets/about/bishop-huddle3.webp';
@@ -49,11 +49,16 @@ export default function Info() {
         gap: { xs: 3, sm: 6 }
       }}
     >
-      <img src={blueBall} />
+      <img src={blueBall} style={{
+        animationDuration: '3s',
+        animationName: 'rollBounce',
+        animationIterationCount: 1,
+        animationTimingFunction: 'linear',
+      }}/>
       <Box
         sx={{
           typography: 'h1',
-          color: 'primary.main',
+          color: 'primary.light',
           textAlign: 'center'
         }}
       >

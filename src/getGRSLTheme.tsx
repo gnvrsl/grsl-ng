@@ -3,6 +3,16 @@ import { ThemeOptions, alpha } from '@mui/material/styles';
 import { red } from '@mui/material/colors';
 import { PaletteMode } from '@mui/material';
 
+/**
+ *  Updated colors to match liquid creative logos
+ *     basic colors:
+ *       dark blue: #193a60
+ *      light blue: #1f8cbc
+ *          orange: #e5a51f
+ * 
+ *    Full palette generated at https://m2.material.io/inline-tools/color/
+ */
+
 declare module '@mui/material/styles/createPalette' {
   interface ColorRange {
     50: string;
@@ -21,29 +31,29 @@ declare module '@mui/material/styles/createPalette' {
 }
 
 export const brand = {
-  50: '#F0F7FF',
-  100: '#CEE5FD',
-  200: '#9CCCFC',
-  300: '#55A6F6',
-  400: '#0A66C2',
-  500: '#0959AA',
-  600: '#064079',
-  700: '#033363',
-  800: '#02294F',
-  900: '#021F3B',
+  50: '#e3eff4',
+  100: '#bad6e5',
+  200: '#92bdd4',
+  300: '#6fa3c2',
+  400: '#5792b7',
+  500: '#4381ad',
+  600: '#3975a2',
+  700: '#2e6591',
+  800: '#26557f',
+  900: '#193A60',
 };
 
 export const secondary = {
-  50: '#F9F0FF',
-  100: '#E9CEFD',
-  200: '#D49CFC',
-  300: '#B355F6',
-  400: '#750AC2',
-  500: '#6709AA',
-  600: '#490679',
-  700: '#3B0363',
-  800: '#2F024F',
-  900: '#23023B',
+  50: '#fcfde7',
+  100: '#f7f8c4',
+  200: '#f2f39d',
+  300: '#eeee77',
+  400: '#eaea59',
+  500: '#e6e53c',
+  600: '#e8d536',
+  700: '#e7bd2b',
+  800: '#e5a61f',
+  900: '#e17f05',
 };
 
 export const gray = {
@@ -76,25 +86,27 @@ const getDesignTokens = (mode: PaletteMode) => ({
   palette: {
     mode,
     primary: {
-      light: brand[200],
-      main: brand[500],
-      dark: brand[800],
+      light: brand[300],
+      main: brand[900],
+      dark: brand[900],
       contrastText: brand[50],
       ...(mode === 'dark' && {
-        contrastText: brand[100],
-        light: brand[300],
-        main: brand[400],
-        dark: brand[800],
+        contrastText: brand[900],
+        light: brand[100],
+        main: brand[300],
+        dark: brand[500],
       }),
     },
     secondary: {
       light: secondary[300],
-      main: secondary[500],
-      dark: secondary[800],
+      main: secondary[800],
+      dark: secondary[900],
+      contrastText: secondary[100],
       ...(mode === 'dark' && {
         light: secondary[400],
         main: secondary[500],
         dark: secondary[900],
+        contrastText: secondary[800],
       }),
     },
     warning: {
@@ -265,7 +277,7 @@ export default function getGRSLTheme(mode: PaletteMode): ThemeOptions {
         },
         styleOverrides: {
           root: ({ theme }) => ({
-            color: brand[600],
+            color: brand[700],
             fontWeight: 500,
             position: 'relative',
             textDecoration: 'none',
@@ -302,13 +314,13 @@ export default function getGRSLTheme(mode: PaletteMode): ThemeOptions {
           }),
         },
       },
-      MuiPaper: {
+      MuiCard: {
         styleOverrides: {
           root: ({ theme }) => ({
             backgroundImage: 'none',
-            backgroundColor: gray[100],
+            backgroundColor: secondary[50],
             ...(theme.palette.mode === 'dark' && {
-              backgroundColor: alpha(gray[900], 0.6),
+              backgroundColor: alpha(secondary[900], 0.6),
             }),
           }),
         },

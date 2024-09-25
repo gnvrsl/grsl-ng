@@ -15,15 +15,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ToggleColorMode from './ToggleColorMode';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
 
-
-const logoStyle = {
-  width: 'auto',
-  height: '60px',
-  cursor: 'pointer',
-};
 
 interface AppAppBarProps {
   mode: PaletteMode;
@@ -53,9 +45,6 @@ function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
     }
   };
   */
-
-  const theme = useTheme();
-  const smallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <div>
