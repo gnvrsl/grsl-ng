@@ -82,7 +82,8 @@ export default function Info() {
             flexDirection: 'column',
             justifyContent: 'center',
           }}>
-            <Typography gutterBottom variant="h2" component="div">
+            <Typography gutterBottom variant="h2" component="div"
+              sx={{color: 'primary.main'}}>
               About Our League
             </Typography>
             <Typography variant="body1" sx={{ color: 'text.secondary' }}>
@@ -115,7 +116,8 @@ export default function Info() {
             flexDirection: 'column',
             justifyContent: 'center',
           }}>
-            <Typography gutterBottom variant="h2" component="div">
+            <Typography gutterBottom variant="h2" component="div"
+              sx={{color: 'primary.main'}}>
               Our Contribution
             </Typography>
             <Typography variant="body1" sx={{ color: 'text.secondary' }}>
@@ -137,7 +139,8 @@ export default function Info() {
             flexDirection: 'column',
             justifyContent: 'center',
           }}>
-            <Typography gutterBottom variant="h2" component="div">
+            <Typography gutterBottom variant="h2" component="div"
+              sx={{color: 'primary.main'}}>
               Soccer for All
             </Typography>
             <Typography variant="body1" sx={{ color: 'text.secondary' }}>

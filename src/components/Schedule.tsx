@@ -96,7 +96,7 @@ export default function Schedule() {
             pb: { xs: 8, sm: 12 },
           }}
         >
-          <Box sx={{typography: 'h4'}}>Schedule</Box>
+          <Box sx={{typography: 'h3', color: 'primary.main'}}>Schedule</Box>
           <Box sx={{ display: 'flex', flexDirection: 'row'}}>
             <FormControl variant="standard" sx={{m: 1, minWidth: 80}}>
               <InputLabel id="year-label">Year</InputLabel>  

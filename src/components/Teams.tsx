@@ -60,7 +60,8 @@ export default function Teams() {
             flexDirection: 'row',
             flex: 1,
             alignItems: 'center',
-            typography: 'h5',
+            typography: 'h3',
+            color: 'primary.main',
             }}>
             Team Rankings
           </Box>

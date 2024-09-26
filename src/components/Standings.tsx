@@ -54,7 +54,7 @@ export default function Standings() {
           pb: { xs: 8, sm: 12 },
         }}
       >
-        <Box sx={{typography: 'h4'}}>Standings</Box>
+        <Box sx={{typography: 'h3', color: 'primary.main'}}>Standings</Box>
         <Box sx={{ 
           width: '100%',
           display: 'flex', 

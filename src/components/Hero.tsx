@@ -1,3 +1,4 @@
+import { StayPrimaryLandscape } from '@mui/icons-material';
 import { alpha } from '@mui/material';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -12,7 +13,7 @@ export default function Hero() {
         width: '100%',
         backgroundImage:
           theme.palette.mode === 'light'
-            ? 'linear-gradient(180deg, #CEF5C4, #FFF)'
+            ? 'linear-gradient(180deg, #6fa3c2, #FFF)'
             : `linear-gradient(#02294F, ${alpha('#090E10', 0.0)})`,
         backgroundSize: '100% 20%',
         backgroundRepeat: 'no-repeat',
@@ -36,6 +37,7 @@ export default function Hero() {
               alignSelf: 'center',
               textAlign: 'center',
               fontSize: 'clamp(3.5rem, 10vw, 4rem)',
+              color: 'primary.main',
             }}
           >
             Gainesville's premier&nbsp;
@@ -45,7 +47,7 @@ export default function Hero() {
               sx={{
                 fontSize: 'clamp(3rem, 10vw, 4rem)',
                 color: (theme) =>
-                  theme.palette.mode === 'light' ? 'primary.main' : 'primary.light',
+                  theme.palette.mode === 'light' ? 'primary.light' : 'primary.light',
               }}
             >
               adult coed league
@@ -53,6 +55,7 @@ export default function Hero() {
           </Typography>
           <Typography
             textAlign="center"
+            variant="h4"
             color="text.secondary"
             sx={{ alignSelf: 'center', width: { sm: '100%', md: '80%' } }}
           >
