@@ -11,7 +11,7 @@ export default function TemplatePage() {
         pb: { xs: 8, sm: 12 },
       }}
     >
-      <Box sx={{typography: 'h4'}}>Page Title</Box>
+      <Box sx={{typography: 'h3', color: 'primary.main'}}>Page Title</Box>
     </Container>
     <Footer />
   </>

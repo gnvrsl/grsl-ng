@@ -8,6 +8,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import Documents from './components/Documents';
 import HomePage from './components/HomePage';
 import Info from './components/Info';
 import Standings from './components/Standings';
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   { 
     path: "about",
     element: <Info />
+  },
+  {
+    path: "documents",
+    element: <Documents />
   },
   {
     path: "standings",

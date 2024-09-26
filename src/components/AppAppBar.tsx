@@ -107,14 +107,7 @@ function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
               }}
             >
               <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                <MenuItem
-                  onClick={() => router.navigate("/")}
-                  sx={{ py: '6px', px: '12px' }}
-                >
-                  <Typography variant="body2" color="text.primary">
-                    Home
-                  </Typography>
-                </MenuItem>
+
                 <MenuItem
                   onClick={() => router.navigate('/schedule')}
                   sx={{ py: '6px', px: '12px' }}
@@ -145,6 +138,14 @@ function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
                 >
                   <Typography variant="body2" color="text.primary">
                     About
+                  </Typography>
+                </MenuItem>
+                <MenuItem
+                  onClick={() => router.navigate("/documents")}
+                  sx={{ py: '6px', px: '12px' }}
+                >
+                  <Typography variant="body2" color="text.primary">
+                    Documents
                   </Typography>
                 </MenuItem>
               </Box>
@@ -203,9 +204,6 @@ function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
                   >
                     <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
                   </Box>
-                  <MenuItem onClick={() => {router.navigate('/'); setOpen(false);}}>
-                    Home
-                  </MenuItem>
                   <MenuItem onClick={() => {router.navigate('/schedule'); setOpen(false);}}>
                     Schedule
                   </MenuItem>
@@ -217,6 +215,9 @@ function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
                   </MenuItem>
                   <MenuItem onClick={() => {router.navigate('/about'); setOpen(false);}}>
                     About
+                  </MenuItem>
+                  <MenuItem onClick={() => {router.navigate('/documents'); setOpen(false);}}>
+                    Documents
                   </MenuItem>
                   <Divider />
                   <MenuItem sx={{
