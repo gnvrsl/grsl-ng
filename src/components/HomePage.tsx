@@ -18,7 +18,6 @@ export default function HomePage() {
         <Announcements />
         <Divider />
         <FAQ />
-        <Divider />
         <Footer />
       </Box>
     </>

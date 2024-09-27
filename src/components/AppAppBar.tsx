@@ -107,7 +107,6 @@ function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
               }}
             >
               <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-
                 <MenuItem
                   onClick={() => router.navigate('/schedule')}
                   sx={{ py: '6px', px: '12px' }}
@@ -116,6 +115,7 @@ function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
                     Schedule
                   </Typography>
                 </MenuItem>
+
                 <MenuItem
                   onClick={() => router.navigate("/standings")}
                   sx={{ py: '6px', px: '12px' }}

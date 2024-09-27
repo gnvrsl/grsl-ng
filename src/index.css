@@ -10,7 +10,7 @@
 
 @keyframes rollBounce {
   0% {
-    transform: translateX(-75vw) rotate(-800deg);
+    transform: translateX(-960px) rotate(-800deg);
   }
 
   60% {
