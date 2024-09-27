@@ -112,7 +112,7 @@ export default function Standings() {
                 {standingsSections.filter(ss => ss.division === division).map(ss =>
                   <StandingsTableSection key={ss.title} title={ss.title} lstandings={ss.lstandings} />
                 )}
-                {knockoutGames[division].length > 0 &&
+                {knockoutGames[division] &&
                   <>
                     <TableHead>
                       <TableRow>
