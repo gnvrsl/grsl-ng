@@ -101,6 +101,7 @@ export interface Team {
 export interface Season {
   _id: number,
   name: string,
+  code: string,
   start: Date,
   end: Date,
   rosterLimit: number,
@@ -112,6 +113,15 @@ export interface Season {
   tournamentStandings: { [key in Division]: { [key: string]: Standings[] }},
   goals: Goal[],
   cards: Card[]
+}
+
+
+// for iterating through standings and tournamentStandings in a single list
+export interface Season2 {
+  code: string,
+  name: string,
+  tournament: boolean,
+  season: Season
 }
 
 export interface Standings {
@@ -135,6 +145,7 @@ type GameType = "r" | "s" | "f" | "t" | "";
 
 export interface LeagueData {
   'seasons': { [key: number]: Season },
+  'seasons2': Season2[],
   'teams': { [key: number]: Team },
   'games': { [key: number]: Game },
   'fields': { [key: number]: Field },
@@ -197,11 +208,14 @@ export function getData(): LeagueData {
   let gYears: number[] = []
   let gSeasons: { [key: number]: Season } = {};
   for (let s of seasons) {
+    let end = new Date(s.end);
+    let code = s.name.substring(0, 2).toLowerCase() + end.getFullYear(); 
     let gs: Season = {
       _id: s.sid,
       name: s.name,
+      code: code,
       start: new Date(s.start),
-      end: new Date(s.end),
+      end: end,
       rosterLimit: s.rosterLimit,
       hasTournament: s.Tournament,
       comment: s.comments,
@@ -218,6 +232,31 @@ export function getData(): LeagueData {
     }
   }
   gYears.sort((a, b) => a < b ? 1 : -1);
+
+  // seasons2
+  let gSeasons2: Season2[] = [];
+  for (let s of Object.values(gSeasons)) {
+    let gs2: Season2 = {
+      code: s.code,
+      name: s.name,
+      tournament: false,
+      season: s
+    }
+
+    gSeasons2.push(gs2);
+
+    if (s.hasTournament) {
+      let gs2t: Season2 = {
+        code: s.code + "T",
+        name: s.name + " Tournament",
+        tournament: true,
+        season: s
+      }
+
+      gSeasons2.push(gs2t);
+    }
+  }
+
 
   let gPlayDates: { [key: number]: PlayDate } = {};
   for (let pd of playDates) {
@@ -368,9 +407,9 @@ export function getData(): LeagueData {
     t.seasons.sort((a, b) => a.end < b.end ? 1 : -1);
   }
 
-
   _grslData = {
     'seasons': gSeasons,
+    'seasons2': gSeasons2,
     'teams': gTeams,
     'games': gGames,
     'fields': gFields,

@@ -7,6 +7,7 @@ import getGRSLTheme from './getGRSLTheme';
 import {
   createBrowserRouter,
   RouterProvider,
+  Navigate
 } from "react-router-dom";
 import Documents from './components/Documents';
 import HomePage from './components/HomePage';
@@ -16,6 +17,15 @@ import Schedule from './components/Schedule';
 import Teams from './components/Teams';
 import TeamPage from './components/TeamPage';
 import ErrorPage from './components/ErrorPage';
+import { getData } from './GrslData';
+
+const StandingsRedirect = () => {
+   const grslData = getData();
+   const defaultSeasonCode = grslData.seasons2[grslData.seasons2.length - 1].code;
+
+   return <Navigate to={`/standings/${defaultSeasonCode}`} />
+}
+
 
 const router = createBrowserRouter([
   {
@@ -33,6 +43,10 @@ const router = createBrowserRouter([
   },
   {
     path: "standings",
+    element: <StandingsRedirect />
+  },
+  {
+    path: "standings/:code",
     element: <Standings />
   },
   {
