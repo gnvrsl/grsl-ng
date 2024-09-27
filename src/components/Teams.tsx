@@ -1,31 +1,30 @@
 import {
   Box,
   Container,
+  Link,
+  Switch,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem
+  FormControlLabel,
 } from '@mui/material';
 import Footer from './Footer';
 import { getData } from '../GrslData';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link  as RouterLink} from 'react-router-dom';
 
 
 export default function Teams() {
   const grslData = getData();
   let teams = Object.values(grslData.teams).sort((a,b ) => a.rank < b.rank ? -1 : 1);
-  const [activeTeams, setActiveTeams] = useState("1");
+  const [activeTeams, setActiveTeams] = useState(true);
 
-  if (activeTeams == "1") {
+  if (activeTeams) {
     teams = teams.filter(t => t.active);
   }
 
@@ -35,52 +34,28 @@ export default function Teams() {
 
   return (
     <>
-    <Box
-      id="hero"
-      sx={{ width: '100%' }}
-    >
       <Container
         sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
           pt: { xs: 10, sm: 14 },
           pb: { xs: 8, sm: 12 },
         }}
       >
-        <Box sx={{ 
-          display: 'flex', 
-          flexDirection: 'row',
-          alignItems: 'space-between',
-          width: '100%',
-          typography: 'h5',
-          }}>
-          <Box sx={{ 
-            display: 'flex', 
-            flexDirection: 'row',
-            flex: 1,
-            alignItems: 'center',
-            typography: 'h3',
-            color: 'primary.main',
-            }}>
-            Team Rankings
-          </Box>
-          <FormControl variant="standard" sx={{m: 1, minWidth: 80}}>
-            <InputLabel id="active-label">Active</InputLabel>  
-            <Select
-              labelId="active-label"
-              id="active-select"
-              value={activeTeams}
-              onChange={(e) => setActiveTeams(e.target.value)}
-            >
-              <MenuItem value="1">Active Teams</MenuItem>
-              <MenuItem value="0">All Teams</MenuItem>
-            </Select>
-          </FormControl>
-        </Box>
+        <Box sx={{typography: 'h3', color: 'primary.main'}}>Teams</Box>   
         <TableContainer sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
           <Table sx={{ maxWidth: { lg: 80, md: 100 }, mb: 2}}>
             <TableHead>
+              <TableRow>
+                <TableCell align="right" colSpan={10}>
+                  <FormControlLabel 
+                    label="Active Teams" 
+                    control={
+                      <Switch defaultChecked 
+                        checked={activeTeams} 
+                        onChange={(e) => setActiveTeams(e.target.checked)}
+                      />}
+                   />
+                </TableCell>
+              </TableRow>
 
               <TableRow>
                 <TableCell></TableCell>
@@ -99,10 +74,19 @@ export default function Teams() {
                 >
                   <TableCell>{t.rank}</TableCell>
                   <TableCell sx={{ 
-                    minWidth: { sm: 100,  md: 200 },
+                    minWidth: { sm: 100,  md: 240 },
                     fontSize: '1.1rem'  
                   }}>
-                    <Link to={'/team/' + t.code}>{short ? t.code : t.name}</Link>
+                    <Link to={'/team/' + t.code}
+                      component={RouterLink}
+                      sx={{ 
+                        textDecoration: 'none', 
+                        color: 'primary',
+                        typography: 'h5',
+                        fontFamily: { xs: 'monospace', sm: 'poppins'}
+                        }}>
+                      {short ? t.code : t.name}
+                    </Link>
                   </TableCell>
                   <TableCell align="right" sx={{ fontSize: '1.4rem', fontWeight: 'medium' }}>{t.rating.toFixed(1)}</TableCell>
                   <TableCell align="right" sx={{ fontSize: '1.3rem'}}>{t.wins}</TableCell>
@@ -115,8 +99,7 @@ export default function Teams() {
           </Table>
         </TableContainer>
       </Container>
-    </Box>
-    <Footer />
+      <Footer />
     </>
   )
 }
