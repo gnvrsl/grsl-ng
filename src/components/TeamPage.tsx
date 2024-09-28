@@ -144,15 +144,6 @@ export default function TeamPage() {
     setTabValue(newValue);
   };
 
-
-  const teamCodeStyle = {
-    fontFamily: 'monospace',
-    fontSize: '1.3rem',
-    fontWeight: '600',
-    mt: 2,
-    ml: 1,
-  }
-
   return (
     <>
       <Container
