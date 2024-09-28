@@ -89,11 +89,12 @@ export default function GameLine({ game, includeDate} : GameLineProps) {
         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
           <Link component={RouterLink} 
             to={'/team/' + game.homeTeam.code} 
+            
             sx={{ 
               textDecoration: 'none', 
               color: htColor,
               typography: 'h5',
-              fontFamily: { xs: 'monospace', sm: 'poppins'}
+              fontFamily: { xs: 'Sono', sm: 'poppins'}
               }}> 
             { shortNames ? game.homeTeam.code : game.homeTeam.name}
           </Link>
@@ -129,7 +130,7 @@ export default function GameLine({ game, includeDate} : GameLineProps) {
             textDecoration: 'none', 
             color: atColor,
             typography: 'h5',
-            fontFamily: { xs: 'monospace', sm: 'poppins'}
+            fontFamily: { xs: 'Sono', sm: 'poppins'}
             }}> 
           { shortNames ? game.awayTeam.code : game.awayTeam.name}
         </Link>

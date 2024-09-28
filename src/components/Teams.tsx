@@ -49,7 +49,7 @@ export default function Teams() {
                   <FormControlLabel 
                     label="Active Teams" 
                     control={
-                      <Switch defaultChecked 
+                      <Switch
                         checked={activeTeams} 
                         onChange={(e) => setActiveTeams(e.target.checked)}
                       />}

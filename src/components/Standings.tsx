@@ -20,6 +20,7 @@ import StandingsTableSection from './StandingsTableSection';
 import { Game, Standings as IStandings } from '../GrslData';
 import { useNavigate } from "react-router-dom";
 import GameLine from './GameLine';
+import React from 'react';
 
 export default function Standings() {
   const grslData = getData();
@@ -108,7 +109,7 @@ export default function Standings() {
               </TableRow>
             </TableHead>
             { Object.keys(leagueNames).map(division =>
-                <>
+                <React.Fragment key={"div" + division}>
                 {standingsSections.filter(ss => ss.division === division).map(ss =>
                   <StandingsTableSection key={ss.title} title={ss.title} lstandings={ss.lstandings} />
                 )}
@@ -132,7 +133,7 @@ export default function Standings() {
                     </TableBody>
                   </>
                 }                 
-                </>
+                </React.Fragment>
               )
             }  
           </Table>

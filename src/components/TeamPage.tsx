@@ -172,7 +172,7 @@ export default function TeamPage() {
             flexDirection: {xs: 'column', sm: 'row'}, 
             width: '100%'}}>
             <Box sx={{ color: 'primary.main', typography: 'h3'}}>{team.name}</Box> 
-            <Box sx={teamCodeStyle}>{team.code}</Box>
+            <Box sx={{ typography: 'h5', fontFamily: 'Sono', color: 'primary.dark'}}>{team.code}</Box>
             <Box sx={{
               typography: 'h5', 
               flex: 1, 

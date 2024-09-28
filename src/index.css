@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Sono:wght@200..800&display=swap');
+
 @keyframes rollIn {
   0% {
     transform: translateX(-75vw) rotate(-800deg);
@@ -20,4 +22,14 @@
   100% {
     transform: translateX(0) rotate(0deg);
   }
+}
+
+
+.team-code {
+  font-family: "Sono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-variation-settings:
+    "MONO" 1;
 }
