@@ -7,7 +7,7 @@ import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
+import { Link as RouterLink } from 'react-router-dom';
 
 export default function FAQ() {
   const [expanded, setExpanded] = React.useState<string | false>(false);
@@ -64,8 +64,13 @@ export default function FAQ() {
             >
               You can start by completing the <Link href="https://docs.google.com/forms/d/e/1FAIpQLScGIW0RmYfRNc7jj0vkX4uL8YNBerCE6LvPXjDxFH6SAIWqAg/viewform">
               interested player form</Link>.  The details provided will be shared with all team captains in the league.
-              
-              We typically host recruitment scrimmage in September and January.  The dates will be posted on the website and our 
+            </Typography>
+            <Typography
+              variant="body2"
+              gutterBottom
+              sx={{ maxWidth: { sm: '100%', md: '70%' } }}
+            >
+              We typically host recruitment scrimmages in September and January.  The dates will be posted on the website and our 
               social media pages.
             </Typography>
           </AccordionDetails>
@@ -80,7 +85,7 @@ export default function FAQ() {
             id="panel2d-header"
           >
             <Typography component="h3" variant="subtitle2">
-              Can I return the product if it doesn&apos;t meet my expectations?
+              Where are games played?
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
@@ -89,7 +94,8 @@ export default function FAQ() {
               gutterBottom
               sx={{ maxWidth: { sm: '100%', md: '70%' } }}
             >
-              No, sorry.  Most people are just bad at soccer, it is nothing to be ashamed of.
+              Games are played at Abby Wambach Park (formerly named Forest Park).  
+              The park is located at 501 SW 20th Ave, Gainesville, FL 32607
             </Typography>
           </AccordionDetails>
         </Accordion>
@@ -103,7 +109,8 @@ export default function FAQ() {
             id="panel3d-header"
           >
             <Typography component="h3" variant="subtitle2">
-              What makes your product stand out from others in the market?
+            I would like to speak with someone about an on field incident. Who do I contact for this?
+
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
@@ -112,8 +119,7 @@ export default function FAQ() {
               gutterBottom
               sx={{ maxWidth: { sm: '100%', md: '70%' } }}
             >
-              Most soccer leagues cater to children, but our league is for differently aged players who are no longer 
-              eligible to play in the youth leagues.
+              Please contact the GRSL Board of Directors at <Link href="mailto:grslboard@gmail.com">grslboard@gmail.com</Link>
             </Typography>
           </AccordionDetails>
         </Accordion>
@@ -138,6 +144,30 @@ export default function FAQ() {
             >
               Please contact the league at <Link href="mailto:grslboard@gmail.com">grslboard@gmail.com</Link> and we will put 
               you in touch with our referee assignor. 
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion
+          expanded={expanded === 'panel4'}
+          onChange={handleChange('panel4')}
+        >
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel4d-content"
+            id="panel4d-header"
+          >
+            <Typography component="h3" variant="subtitle2">
+              When are games played?
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography
+              variant="body2"
+              gutterBottom
+              sx={{ maxWidth: { sm: '100%', md: '70%' } }}
+            >
+              Games are played on Sunday mornings and afternoons.  See
+              the <Link component={RouterLink} to="/schedule">schedule</Link> for more details. 
             </Typography>
           </AccordionDetails>
         </Accordion>
