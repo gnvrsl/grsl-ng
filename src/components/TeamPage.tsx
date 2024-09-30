@@ -1,13 +1,32 @@
 import * as React from "react";
-import { useParams } from "react-router-dom";
+import { 
+  Navigate,
+  useNavigate,
+  useParams, 
+  Link as RouterLink 
+} from "react-router-dom";
 import { useState } from "react";
-import { getPlayerData, Game, FieldLining, Season, Standings, Player } from "../GrslData";
+import { 
+  getData, 
+  getPlayerData, 
+  Game, 
+  FieldLining, 
+  Season, 
+  Standings, 
+  Player 
+} from "../GrslData";
 import {
   Box, 
   Card, 
   CardContent, 
   Container,
   Divider,
+  FormControl,
+  InputLabel,
+  Link,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
   Tab,
   Tabs,
   Table, 
@@ -17,11 +36,24 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import Grid from '@mui/material/Unstable_Grid2';
 import ShirtIcon from "./ShirtIcon";
 import GameLine from "./GameLine";
 import LiningLine from "./LiningLine";
 import Footer from "./Footer";
+
+export function TeamRedirect() {
+  const grslData = getData();
+  const params = useParams();
+  const tc = params.code?.toLowerCase();
+
+  const team = Object.values(grslData.teams).find(t => t.code.toLowerCase() == tc);
+  if (!team) throw new Error(`Team ${params.code} not found`);
+
+  const season = team.seasons[0];
+
+  return <Navigate to={`/team/${tc}/${season.code}`} />
+}
+
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -56,13 +88,15 @@ function a11yProps(index: number) {
 export default function TeamPage() {
   const [tabValue, setTabValue] = useState(0);
   const params = useParams();
+  const navigate = useNavigate();
   const grslData = getPlayerData();
   const tc = params.code?.toLowerCase();
 
   const team = Object.values(grslData.teams).find(t => t.code.toLowerCase() == tc);
   if (!team) throw new Error(`Team ${params.code} not found`);
 
-  const season = team.seasons[0];
+  const season = team.seasons.find(s => s.code == params.season);
+  if (!season) throw new Error(`Season ${params.season} not found`);
 
   interface TeamStandings {
     season: Season;
@@ -108,6 +142,9 @@ export default function TeamPage() {
     return a.season.start > b.season.start ? -1 : 1;
   });    
 
+  const currentStanding = teamStandings.find(s => s.season._id == season._id);
+  if (!currentStanding) throw new Error(`Season ${params.season} not found`);
+
   // Team games
   const teamGames = Object.values(grslData.games).filter(g => 
     (g.homeTeam._id == team._id || g.awayTeam._id == team._id) && g.season._id == season._id);
@@ -151,6 +188,11 @@ export default function TeamPage() {
     setTabValue(newValue);
   };
 
+  function handleSeasonChange(event: SelectChangeEvent) {
+    const seasonCode = event.target.value as string;
+    navigate(`/team/${tc}/${seasonCode}`);
+  }
+
   return (
     <>
       <Container
@@ -168,56 +210,75 @@ export default function TeamPage() {
           <Box sx={{
             display: 'flex', 
             flexDirection: {xs: 'column', sm: 'row'}, 
+            alignItems: 'flex-end',
             width: '100%'}}>
             <Box sx={{ color: 'primary.main', typography: 'h3'}}>{team.name}</Box> 
-            <Box sx={{ typography: 'h5', fontFamily: 'Sono', color: 'primary.dark'}}>{team.code}</Box>
-            <Box sx={{
-              typography: 'h5', 
-              flex: 1, 
-              textAlign: 'right',
-              mr: 2,
-              mt: 2
-            }}>
-                {season.name}
-            </Box>
+            <Box sx={{ typography: 'h5', fontFamily: 'Sono', color: 'primary.dark', ml: 2}}>{team.code}</Box>
           </Box>
-          <Card sx={{
-          }}>
-            <CardContent>
-              <Grid container spacing={2}>
-                <Grid xs={6} sm={4} md={2}>
+          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr'}, gap: 2, mt: 2}}>
+            <Card sx={{
+            }}>
+              <CardContent sx={{
+                display: 'grid',
+                gridTemplateColumns: { sm: '1fr 1fr', lg: '1fr 1fr 1fr 1fr'},
+                gap: 2
+              }}>
+                <Box>
                   <Box sx={{ typography: 'caption' }}>Captain(s)</Box>
                   <Box>{ team.captain1 ? team.captain1?.firstName + " " + team.captain1?.lastName: "N/A"}</Box>
                   <Box>{team.captain2?.firstName} {team.captain2?.lastName}</Box>
-                </Grid>
-                <Grid xs={6} sm={4} md={2}>
+                </Box>
+                <Box>
                   <Box sx={{ typography: 'caption' }}>Primary Shirt</Box>
                   <ShirtIcon shirtColor={team.jersey1} />
-                </Grid>
-                <Grid xs={6} sm={4} md={2}>
+                </Box>
+                <Box>
                   <Box sx={{ typography: 'caption' }}>All-time Record</Box>
                   {team.wins}W - {team.draws}D - {team.losses}L
-                </Grid>  
-                <Grid xs={6} sm={4} md={2}>
-                  <Box sx={{ typography: 'caption' }}>Recent Season</Box>
-                  {teamStandings[0].season.name}             
-                </Grid>
-                <Grid xs={6} sm={4} md={2}>
-                  <Box sx={{ typography: 'caption' }}>Season Standing</Box>
-                  {teamStandings[0].standings.rank}, Division {teamStandings[0].division.toUpperCase()}
-                </Grid>
-
-                <Grid xs={6} sm={4} md={2}>
+                </Box>  
+                <Box>
                   <Box sx={{ typography: 'caption' }}>Rank</Box>
                   {team.rank} ({team.rating.toFixed(1)})
-                </Grid>
-                <Grid xs={6} sm={4} md={2}>
-                  <Box sx={{typography: 'caption'}}>Card Points</Box>
-                  <Box>{cardPoints}</Box>
-                </Grid>
-              </Grid>
-            </CardContent>          
-          </Card>
+                </Box>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent sx={{
+                display: 'grid',
+                gridTemplateColumns: { sm: '1fr 1fr', lg: '1fr 1fr 1fr 1fr'},
+                gap: 2
+              }}>
+                <Box>
+                  <FormControl variant="standard" sx={{m: 1, minWidth: 180}}>
+                    <InputLabel id="season-label">Season</InputLabel>  
+                      <Select
+                        labelId="season-label"
+                        id="season-select"
+                        value={season.code}
+                        onChange={handleSeasonChange}
+                      >
+                        { team.seasons.map(s => 
+                          <MenuItem key={s.code} value={s.code}>{s.name}</MenuItem>
+                        )}
+                      </Select>
+                    </FormControl>
+                </Box>
+                <Box>
+                    <Box sx={{ typography: 'caption' }}>Season Standing</Box>
+                    {currentStanding.standings.rank}, Division {currentStanding.division.toUpperCase()}
+                </Box>
+                <Box>
+                  <Box sx={{typography: 'caption'}}>Record</Box>
+                  {currentStanding.standings.wins}W - {currentStanding.standings.draws}D - {currentStanding.standings.losses}L
+                </Box>
+                <Box>
+                    <Box sx={{typography: 'caption'}}>Card Points</Box>
+                    <Box>{cardPoints}</Box>
+                </Box>
+                        
+              </CardContent>
+            </Card>
+          </Box>
           
           <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -297,7 +358,11 @@ export default function TeamPage() {
                   <TableBody>
                     {teamStandings.map(s =>
                       <TableRow key={s.season._id + s.division + (s.group || '')}>
-                        <TableCell sx={{ fontSize: '1.1rem'}}>{s.tournament ? s.season.name + " - T" : s.season.name}</TableCell>
+                        <TableCell sx={{ fontSize: '1.1rem'}}>
+                          <Link component={RouterLink} to={'/team/' + team.code + "/" + s.season.code}>
+                            {s.tournament ? s.season.name + " - T" : s.season.name}
+                          </Link>
+                        </TableCell>
                         <TableCell sx={{ fontSize: '1.1rem'}}>{s.tournament ? s.division.toUpperCase() + s.group : s.division.toUpperCase()}</TableCell>
                         <TableCell align="right" sx={{ fontSize: '1.6rem', fontWeight: 'medium'}}>{s.standings.rank}</TableCell>
                         <TableCell align="right" sx={{ fontSize: '1.3rem'}}>{s.standings.wins}</TableCell>

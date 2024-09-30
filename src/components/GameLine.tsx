@@ -88,7 +88,7 @@ export default function GameLine({ game, includeDate} : GameLineProps) {
         </Stack>
         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
           <Link component={RouterLink} 
-            to={'/team/' + game.homeTeam.code} 
+            to={'/team/' + game.homeTeam.code + '/' + game.season.code} 
             
             sx={{ 
               textDecoration: 'none', 
@@ -125,7 +125,7 @@ export default function GameLine({ game, includeDate} : GameLineProps) {
       <Box sx={{flex: 1, display: 'flex', flexDirection: 'row'}}>
         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
         <Link component={RouterLink} 
-          to={'/team/' + game.awayTeam.code} 
+          to={'/team/' + game.awayTeam.code + '/' + game.season.code} 
           sx={{ 
             textDecoration: 'none', 
             color: atColor,

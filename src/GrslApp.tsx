@@ -15,7 +15,7 @@ import Info from './components/Info';
 import Standings from './components/Standings';
 import Schedule from './components/Schedule';
 import Teams from './components/Teams';
-import TeamPage from './components/TeamPage';
+import TeamPage, { TeamRedirect } from './components/TeamPage';
 import ErrorPage from './components/ErrorPage';
 import { getData } from './GrslData';
 
@@ -25,6 +25,7 @@ const StandingsRedirect = () => {
 
    return <Navigate to={`/standings/${defaultSeasonCode}`} />
 }
+
 
 
 const router = createBrowserRouter([
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
   },
   {
     path: "team/:code",
+    element: <TeamRedirect />
+  },
+  {
+    path: "team/:code/:season",
     element: <TeamPage />,
     errorElement: <ErrorPage />
   }

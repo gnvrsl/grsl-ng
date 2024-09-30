@@ -19,8 +19,6 @@ export default function GameLine({ lining, includeDate} : LiningLineProps) {
   const shortNames = useMediaQuery(theme.breakpoints.down('sm'));
   const mediumNames = useMediaQuery(theme.breakpoints.down('md'));
 
-  let gameType;
-
   function timeString(date: Date) {
     let timeStr = date.toLocaleTimeString(undefined, {hour12: true, timeStyle: "short"});
     timeStr = timeStr.replace(' AM', 'am').replace(' PM', 'pm');
