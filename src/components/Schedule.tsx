@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { getData, Game } from '../GrslData';
+import { getData, Game, FieldLining } from '../GrslData';
 import {
   Box,
   Container,
@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import GameLine from './GameLine';
+import LiningLine from './LiningLine';
 import Footer from './Footer';
 
 
@@ -65,9 +66,15 @@ export default function Schedule() {
     games = previousPlayDateGames.concat(nextPlayDateGames);
   }
 
+  // Find concurrent lining dates
+  let lining = grslData.fieldLining.filter(fl => fl.date >= games[0].date && fl.date <= games[games.length - 1].date);
+  let gamesLining: (Game|FieldLining)[] = [...games, ...lining];
+  gamesLining.sort((g1, g2) => g1.date < g2.date ? -1 : 1);
+
   if (team) {
     const teamId = parseInt(team);
     games = games.filter((g) => g.homeTeam._id == teamId || g.awayTeam._id == teamId);
+    lining = lining.filter((l) => l.team1._id == teamId || l.team2?._id == teamId);
   }
 
   const handleDivChange = (event: SelectChangeEvent) => {
@@ -145,32 +152,46 @@ export default function Schedule() {
             </FormControl> 
           </Box>
           { games.length == 0 ? <Box sx={{typography: 'h5', mt: 3}}>No games sheduled</Box> : null }
-          { games.map(game => {
-            const printDate = game.playDate._id != previousPd._id;
-            let printMissingSunday = false;
-            if (printDate) {
-              if (previousPd.date < nextSunday && game.playDate.date >= nextSunday) {
-                printMissingSunday = true;
+          { gamesLining.map(gameOrLining => {
+            const isGame = !! (gameOrLining as Game).homeTeam;
+            if (isGame) {
+              const game = gameOrLining as Game;
+              const printDate = game.playDate._id != previousPd._id;
+              let printMissingSunday = false;
+              if (printDate) {
+                if (previousPd.date < nextSunday && game.playDate.date >= nextSunday) {
+                  printMissingSunday = true;
+                }
+                previousPd = game.playDate;
               }
-              previousPd = game.playDate;
+              return (
+              <React.Fragment key={game._id}>
+                { printMissingSunday ?
+                  <Box sx={{typography: 'h5', mt: 3}} id={nextSunday.toISOString().substring(0, 10)}>
+                    {nextSunday.toLocaleDateString(undefined, { month: "long", day: "numeric", year: "numeric"})} - 
+                    No games scheduled
+                  </Box> : null
+                }
+                { printDate ? 
+                  <Box sx={{typography: 'h5', mt: 3}} id={game.date.toISOString().substring(0, 10)}>
+                    {game.date.toLocaleDateString(undefined, { month: "long", day: "numeric", year: "numeric"})}
+                  </Box> :
+                  <Divider />
+                }
+                <GameLine game={game}></GameLine>
+              </React.Fragment>
+              )
+            } else {
+              const lining = gameOrLining as FieldLining;
+              return (
+                <React.Fragment key={lining._id}>
+                  <Box sx={{typography: 'h5', mt: 3}} id={lining.date.toISOString().substring(0, 10)}>
+                    {lining.date.toLocaleDateString(undefined, { month: "long", day: "numeric", year: "numeric"})}
+                  </Box>
+                  <LiningLine lining={lining} />
+                </React.Fragment>
+              )
             }
-            return (
-            <React.Fragment key={game._id}>
-              { printMissingSunday ?
-                <Box sx={{typography: 'h5', mt: 3}} id={nextSunday.toISOString().substring(0, 10)}>
-                  {nextSunday.toLocaleDateString(undefined, { month: "long", day: "numeric", year: "numeric"})} - 
-                  No games scheduled
-                </Box> : null
-              }
-              { printDate ? 
-                <Box sx={{typography: 'h5', mt: 3}} id={game.date.toISOString().substring(0, 10)}>
-                  {game.date.toLocaleDateString(undefined, { month: "long", day: "numeric", year: "numeric"})}
-                </Box> :
-                <Divider />
-              }
-              <GameLine game={game}></GameLine>
-            </React.Fragment>
-            )
           })}
           { previousPd.date < nextSunday && year == 'This Week' ?
             <Box sx={{typography: 'h5', mt: 3}} id={nextSunday.toISOString().substring(0, 10)}>

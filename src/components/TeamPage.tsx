@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import { getPlayerData, Season, Standings, Player } from "../GrslData";
+import { getPlayerData, Game, FieldLining, Season, Standings, Player } from "../GrslData";
 import {
   Box, 
   Card, 
@@ -20,6 +20,7 @@ import {
 import Grid from '@mui/material/Unstable_Grid2';
 import ShirtIcon from "./ShirtIcon";
 import GameLine from "./GameLine";
+import LiningLine from "./LiningLine";
 import Footer from "./Footer";
 
 interface TabPanelProps {
@@ -111,6 +112,12 @@ export default function TeamPage() {
   const teamGames = Object.values(grslData.games).filter(g => 
     (g.homeTeam._id == team._id || g.awayTeam._id == team._id) && g.season._id == season._id);
 
+  // Field lining
+  const fieldLining = grslData.fieldLining.filter(fl => 
+    (fl.team1._id == team._id || fl.team2?._id == team._id) && fl.season._id == season._id);
+  const gamesLining = [...teamGames, ...fieldLining];   
+  gamesLining.sort((a, b) => a.date < b.date ? -1 : 1);
+    
   // Cards
   const teamCards = season.cards.filter(c => c.team?._id == team._id);
   const cardPoints = teamCards.reduce((prev, cur) => prev + (cur.color == 'r' ? 3 : 1), 0);
@@ -222,11 +229,26 @@ export default function TeamPage() {
             </Box>
             <CustomTabPanel value={tabValue} index={0}>
               <Box id="recent-games" sx={{ width: "100%", mb: 4 }}>
-                {teamGames.map(g =>
-                <React.Fragment key={g._id}>
-                  <GameLine game={g} includeDate={true} />
-                  <Divider />
-                </React.Fragment>  
+                {gamesLining.map(gOrL => {
+                  const isGame = !! (gOrL as Game).homeTeam;
+                  if (isGame) {
+                    const g = gOrL as Game;
+                    return (
+                      <React.Fragment key={"game" + g._id}>
+                        <GameLine game={g} includeDate={true} />
+                        <Divider />
+                      </React.Fragment>
+                    )
+                  } else {
+                    const fl = gOrL as FieldLining;
+                    return (
+                      <React.Fragment key={"lining" + fl._id}>
+                        <LiningLine lining={fl} includeDate={true} />
+                        <Divider />
+                      </React.Fragment>
+                    )
+                  }
+                }  
                 )}
               </Box> 
             </CustomTabPanel>

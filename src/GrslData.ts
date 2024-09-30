@@ -1,5 +1,6 @@
 import { 
   fields,
+  fieldLining,
   schedule, 
   playDates,
   seasons, 
@@ -57,6 +58,16 @@ export interface Field {
   name: string, // lname
   url: string | null // maplink
 }
+
+export interface FieldLining {
+  _id: number,
+  date: Date,
+  team1: Team,
+  team2: Team | null,
+  location: string,
+  season: Season
+}
+
 
 export interface PlayDate {
   _id: number, // pdid
@@ -149,6 +160,7 @@ export interface LeagueData {
   'teams': { [key: number]: Team },
   'games': { [key: number]: Game },
   'fields': { [key: number]: Field },
+  'fieldLining': FieldLining[],
   'players': { [key: number]: Player},
   'years': number[],
   'playDates': { [key: number]: PlayDate },
@@ -320,8 +332,6 @@ export function getData(): LeagueData {
       draws: t.draws,
       seasons: []
     }
-
-
   }
 
   let gGames: { [key: number]: Game } = {};
@@ -358,6 +368,23 @@ export function getData(): LeagueData {
     gSeasons[g.sid].games.push(gg);
   }
 
+  // field lining
+  let gFieldLining: FieldLining[] = [];
+  let lid = 0;
+  for (let fl of fieldLining) {
+    lid += 1;
+    let gfl: FieldLining = {
+      _id: lid,
+      date: new Date(fl.ldate + "T" + "08:00:00"),
+      team1: gTeams[fl.tid1],
+      team2: fl.tid2 ? gTeams[fl.tid2] : null,
+      location: fl.location || "",
+      season: gSeasons[fl.sid]
+    }
+    gFieldLining.push(gfl);
+  }
+
+  // Standings
   for (let s of standings) {
     let gs: Standings = {
       team: gTeams[s.teamid],
@@ -413,6 +440,7 @@ export function getData(): LeagueData {
     'teams': gTeams,
     'games': gGames,
     'fields': gFields,
+    'fieldLining': gFieldLining,
     'players': gPlayers,
     'years': gYears,
     'playDates': gPlayDates
