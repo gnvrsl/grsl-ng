@@ -41,6 +41,7 @@ export default function Schedule() {
 
   const nextSunday = new Date();
   nextSunday.setDate(nextSunday.getDate() + (7 - nextSunday.getDay()));
+  nextSunday.setHours(0, 0, 0, 0);
 
   if (year == "This Week") {
     // filter games to match most recent play date from grslData.playDates and next play date from grslData.playDates
@@ -68,14 +69,15 @@ export default function Schedule() {
 
   // Find concurrent lining dates
   let lining = grslData.fieldLining.filter(fl => fl.date >= games[0].date && fl.date <= games[games.length - 1].date);
-  let gamesLining: (Game|FieldLining)[] = [...games, ...lining];
-  gamesLining.sort((g1, g2) => g1.date < g2.date ? -1 : 1);
 
   if (team) {
     const teamId = parseInt(team);
     games = games.filter((g) => g.homeTeam._id == teamId || g.awayTeam._id == teamId);
     lining = lining.filter((l) => l.team1._id == teamId || l.team2?._id == teamId);
   }
+
+  let gamesLining: (Game|FieldLining)[] = [...games, ...lining];
+  gamesLining.sort((g1, g2) => g1.date < g2.date ? -1 : 1);
 
   const handleDivChange = (event: SelectChangeEvent) => {
     setDivision(event.target.value);
@@ -159,7 +161,7 @@ export default function Schedule() {
               const printDate = game.playDate._id != previousPd._id;
               let printMissingSunday = false;
               if (printDate) {
-                if (previousPd.date < nextSunday && game.playDate.date >= nextSunday) {
+                if (previousPd.date < nextSunday && game.playDate.date > nextSunday) {
                   printMissingSunday = true;
                 }
                 previousPd = game.playDate;

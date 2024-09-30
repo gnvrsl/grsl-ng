@@ -276,7 +276,7 @@ export function getData(): LeagueData {
     let pds = gSeasons[pd.sid];
     let gpd: PlayDate = {
       _id: pd.pdid,
-      date: new Date(pd.gameDate),
+      date: new Date(pd.gameDate + "T00:00:00"), // add T00:00:00 to force local timezone
       dateStr: pd.gameDate,
       gType: pd.tgame,
       title: pd.gameName,
