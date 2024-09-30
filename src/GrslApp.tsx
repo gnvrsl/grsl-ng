@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { PaletteMode } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import AppAppBar from './components/AppAppBar';
@@ -71,12 +70,12 @@ const router = createBrowserRouter([
 
 
 export default function GrslApp() {
-  const [mode, setMode] = React.useState<PaletteMode>('light');
+  const mode = useMediaQuery('(prefers-color-scheme: dark)') ? 'dark' : 'light';
   const GRSLTheme = createTheme(getGRSLTheme(mode));
   //const defaultTheme = createTheme({ palette: { mode } });
 
   const toggleColorMode = () => {
-    setMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
+    //setMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
   };
 
   return (

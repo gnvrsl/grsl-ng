@@ -12,7 +12,6 @@ import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
-import ToggleColorMode from './ToggleColorMode';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 
@@ -25,7 +24,7 @@ interface AppAppBarProps {
 
 function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
   const [open, setOpen] = React.useState(false);
-
+  mode == 'light' && toggleColorMode();  //  this is a no-op, it's here so I don't have to change the props definition
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
@@ -157,7 +156,6 @@ function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
                 alignItems: 'center',
               }}
             >
-              <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
               <IconButton
                 color="primary"
                 href="https://www.facebook.com/grslsoccer"
@@ -194,16 +192,6 @@ function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
                     flexGrow: 1,
                   }}
                 >
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'end',
-                      flexGrow: 1,
-                    }}
-                  >
-                    <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
-                  </Box>
                   <MenuItem onClick={() => {router.navigate('/schedule'); setOpen(false);}}>
                     Schedule
                   </MenuItem>

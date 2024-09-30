@@ -208,7 +208,7 @@ const getDesignTokens = (mode: PaletteMode) => ({
       fontWeight: 400,
       fontSize: 12,
     },
-  },
+  }
 });
 
 export default function getGRSLTheme(mode: PaletteMode): ThemeOptions {
