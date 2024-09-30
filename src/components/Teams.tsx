@@ -72,7 +72,7 @@ export default function Teams() {
                 <TableRow
                   key={t._id}
                 >
-                  <TableCell>{t.rank}</TableCell>
+                  <TableCell>{activeTeams ? t.activeRank : t.rank}</TableCell>
                   <TableCell sx={{ 
                     minWidth: { sm: 100,  md: 240 },
                     fontSize: '1.1rem'  
