@@ -43,7 +43,7 @@ export default function Announcements() {
           <Typography>
             First fall match is Sunday, October 6th
           </Typography>
-          <Link>Fall 2024 Key Dates</Link>
+          <Link href="/page/dates">Fall 2024 Key Dates</Link>
         </CardContent>
       </Card>
     </Container>

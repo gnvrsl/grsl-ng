@@ -11,6 +11,7 @@ import {
 import Documents from './components/Documents';
 import HomePage from './components/HomePage';
 import Info from './components/Info';
+import MarkdownPage, { loadMarkdownPage } from './components/MarkdownPage';
 import Standings from './components/Standings';
 import Schedule from './components/Schedule';
 import Teams from './components/Teams';
@@ -65,6 +66,11 @@ const router = createBrowserRouter([
     path: "team/:code/:season",
     element: <TeamPage />,
     errorElement: <ErrorPage />
+  },
+  {
+    path: "page/:page",
+    loader: loadMarkdownPage,
+    element: <MarkdownPage />
   }
 ])
 
