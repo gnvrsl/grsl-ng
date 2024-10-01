@@ -77,6 +77,18 @@ export default function Footer() {
             }}
           >
             <Typography variant="body2" fontWeight={600}>
+              Contact
+            </Typography>
+            <Link color="text.secondary" href="mailto:grslboard@gmail.com">grslboard@gmail.com</Link>
+          </Box>
+          <Box
+            sx={{
+              display: { xs: 'none', sm: 'none', md: 'flex' },
+              flexDirection: 'column',
+              gap: 1,
+            }}
+          >
+            <Typography variant="body2" fontWeight={600}>
               Documents
             </Typography>
             <Link color="text.secondary" href={bylaws} target="_blank">
@@ -107,7 +119,6 @@ export default function Footer() {
           <div>
             <Copyright />
           </div>
-          <Link href="mailto:grslboard@gmail.com">grslboard@gmail.com</Link>
           <Stack
             direction="row"
             justifyContent="left"
