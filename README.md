@@ -7,15 +7,21 @@ This site is written in Typescript with React components.  It uses Vite as a bui
 To run a development version of the site, clone the repository and cd in to the directory.  
 
 Install the dependencies:
-`$ npm install`
+```
+$ npm install
+```
 
 Start the dev server:
-`$ npm run dev`
+```
+$ npm run dev
+```
 
 ## Deployment
 
 Build the application for deployment:
-`$ npm run build`
+```
+$ npm run build
+```
 
 This will build a static version of the site in the dist directory.  From there it can be copied to the root of the webserver.
 
@@ -23,9 +29,11 @@ This will build a static version of the site in the dist directory.  From there 
 
 The repository comes with a static copy of the data from the GRSL Database.  Updated copies of these json files can be pulled from https://old.grsl.org and placed in src/assets.  Rebuild the site to incorporate the updated data. 
 
-`$ wget https://old.grsl.org/api/playerData.php -O src/assets/playerData.json`
-`$ wget https://old.grsl.org/api/teamsGames.php -O src/assets/teamsGames.json`
-`$ npm run build`
+```
+$ wget https://old.grsl.org/api/playerData.php -O src/assets/playerData.json
+$ wget https://old.grsl.org/api/teamsGames.php -O src/assets/teamsGames.json
+$ npm run build
+```
 
 ## Adding pages
 
