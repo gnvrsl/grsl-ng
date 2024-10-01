@@ -8,19 +8,19 @@ To run a development version of the site, clone the repository and cd in to the 
 
 Install the dependencies:
 ```
-$ npm install
+npm install
 ```
 
 Start the dev server:
 ```
-$ npm run dev
+npm run dev
 ```
 
 ## Deployment
 
 Build the application for deployment:
 ```
-$ npm run build
+npm run build
 ```
 
 This will build a static version of the site in the dist directory.  From there it can be copied to the root of the webserver.
