@@ -14,6 +14,7 @@ import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
+import Switch from '@mui/material/Switch';
 
 
 interface AppAppBarProps {
@@ -24,10 +25,16 @@ interface AppAppBarProps {
 
 function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
   const [open, setOpen] = React.useState(false);
+  const [primaryLogo, setLogoSwitch] = React.useState(true);
+  let logo = primaryLogo ? '/Primary-GRSL.png' : '/Primary-Full-crop.png';
   mode == 'light' && toggleColorMode();  //  this is a no-op, it's here so I don't have to change the props definition
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
+
+  const toggleLogo = (newToggle: boolean) => () => {  
+    setLogoSwitch(newToggle);
+  }
 
   /** 
   const scrollToSection = (sectionId: string) => {
@@ -88,13 +95,21 @@ function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
                   zIndex: 3, 
                   top: -42,
                 }}>
-              <img src="/Primary-GRSL.png"
+              <img src={logo}
                 onClick={() => router.navigate('/')}
                 style={{ 
                   height: '82px',
                   cursor: 'pointer'
                 }} alt="GRSL logo" />
               </a>
+            </Box>
+            <Box>
+              <Switch
+                checked={primaryLogo}
+                onChange={toggleLogo(!primaryLogo)}
+                name="logoSwitch"
+                inputProps={{ 'aria-label': 'secondary checkbox' }}
+              />
             </Box>
             <Box
               sx={{
@@ -174,6 +189,7 @@ function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
               </IconButton>
             </Box>
             <Box sx={{ display: { sm: '', md: 'none' } }}>
+
               <Button
                 variant="text"
                 color="primary"
