@@ -215,6 +215,15 @@ export default function TeamPage() {
             <Box sx={{ color: 'primary.main', typography: 'h3'}}>{team.name}</Box> 
             <Box sx={{ typography: 'h5', fontFamily: 'Sono', color: 'primary.dark', ml: 2}}>{team.code}</Box>
           </Box>
+          <Box sx={{
+            mt: 2,
+            alignSelf: 'center',
+            height: { xs: 200, sm: 500 },
+            width: '100%',
+            backgroundImage: 'url(/teams/' + team.code + '.jpg), url(/teams/default.webp)',
+            backgroundSize: 'cover',
+            borderRadius: '2px',
+          }} />
           <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr'}, gap: 2, mt: 2}}>
             <Card sx={{
             }}>
