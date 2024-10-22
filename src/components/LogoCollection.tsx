@@ -46,6 +46,16 @@ export default function LogoCollection() {
           <Typography sx={tagStyle}>700+ Players</Typography>
         </Grid>
       </Grid>
+      <Box
+        sx={{
+          typography: 'h1',
+          color: 'primary.light',
+          textAlign: 'center',
+          mt: 4
+        }}
+      >
+        DIVERSITY. INTEGRITY. RESPECT.
+      </Box>
     </Box>
   );
 }
