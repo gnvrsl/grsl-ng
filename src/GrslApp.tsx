@@ -52,7 +52,8 @@ const router = createBrowserRouter([
   },
   {
     path: "schedule",
-    element: <Schedule />
+    element: <Schedule />,
+    errorElement: <ErrorPage />
   },
   {
     path: "teams",

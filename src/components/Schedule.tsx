@@ -68,7 +68,7 @@ export default function Schedule() {
   }
 
   // Find concurrent lining dates
-  let lining = grslData.fieldLining.filter(fl => fl.date >= games[0].date && fl.date <= games[games.length - 1].date);
+  let lining = grslData.fieldLining.filter(fl => fl.date >= games[0]?.date && fl.date <= games[games.length - 1]?.date);
 
   if (team) {
     const teamId = parseInt(team);
