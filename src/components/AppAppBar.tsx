@@ -25,16 +25,12 @@ interface AppAppBarProps {
 
 function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
   const [open, setOpen] = React.useState(false);
-  const [primaryLogo, setLogoSwitch] = React.useState(true);
-  let logo = primaryLogo ? '/Primary-GRSL.png' : '/Primary-Full-crop.png';
+  let logo = '/Primary-GRSL.png';
   mode == 'light' && toggleColorMode();  //  this is a no-op, it's here so I don't have to change the props definition
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
 
-  const toggleLogo = (newToggle: boolean) => () => {  
-    setLogoSwitch(newToggle);
-  }
 
   /** 
   const scrollToSection = (sectionId: string) => {
@@ -102,14 +98,6 @@ function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
                   cursor: 'pointer'
                 }} alt="GRSL logo" />
               </a>
-            </Box>
-            <Box>
-              <Switch
-                checked={primaryLogo}
-                onChange={toggleLogo(!primaryLogo)}
-                name="logoSwitch"
-                inputProps={{ 'aria-label': 'secondary checkbox' }}
-              />
             </Box>
             <Box
               sx={{
