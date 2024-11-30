@@ -2,6 +2,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import AppAppBar from './components/AppAppBar';
+import BoardBios from './components/BoardBios';
 import getGRSLTheme from './getGRSLTheme';
 import {
   createBrowserRouter,
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
   { 
     path: "about",
     element: <Info />
+  },
+  {
+    path: "board",
+    element: <BoardBios />
   },
   {
     path: "documents",

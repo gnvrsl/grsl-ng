@@ -9,7 +9,8 @@ import steve from '../assets/about/steve.jpg';
 import mary from '../assets/about/mary.jpg';
 import rebeca from '../assets/about/rebeca.jpg';
 import isaiah from '../assets/about/isaiah.jpg';
-import john from '../assets/about/john.jpg';
+import traci from '../assets/about/traci.jpg';
+import becca from '../assets/about/becca.jpg';
 import BoardMember from './BoardMember';
 
 const textBlurbs = {
@@ -168,10 +169,11 @@ export default function Info() {
         }}>
           <BoardMember name="Martin Costello" role="President" imageSrc={martin} />
           <BoardMember name="Steve Moore" role="Vice President" imageSrc={steve} />
-          <BoardMember name="Rebeca Denehan" role="Treasurer" imageSrc={rebeca} />  
+          <BoardMember name="Rebeca Denehan" role="Treasurer" imageSrc={rebeca} /> 
+          <BoardMember name="Becca Antelis" role="Team and Player Relations" imageSrc={becca} />
           <BoardMember name="Mary Butterworth" role="Secretary" imageSrc={mary} />
           <BoardMember name="Isaiah Brinza" role="Marketing & Communications" imageSrc={isaiah} />
-          <BoardMember name="John Malanchuk" role="Special Projects" imageSrc={john} />
+          <BoardMember name="Traci Ball" role="Board Member" imageSrc={traci} />
         </Box>
       </Container>
     </Box>
