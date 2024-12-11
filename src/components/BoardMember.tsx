@@ -1,9 +1,10 @@
 import {
   Avatar,
   Box,
+  Link,
   Typography,
 } from '@mui/material';
-
+import { Link as RouterLink } from 'react-router-dom';
 
 interface BoardMemberProps {
   name: string,
@@ -20,9 +21,11 @@ export default function BoardMember({ name, role, imageSrc }: BoardMemberProps) 
       alignItems: 'center',
       pb: 4 }}>
       <Avatar sx={{ width: 260, height: 260 }} src={imageSrc} alt={name} />
-      <Typography variant="h4" sx={{ color: 'secondary.contrastText' }}>
+      <Link component={RouterLink} 
+        sx={{ typography: 'h4', color: 'secondary.contrastText' }}
+        to={'/board#' + name}>
         {name}
-      </Typography>
+      </Link>
       <Typography variant="h5" sx={{ color: 'secondary.contrastText' }}>
         {role}
       </Typography>

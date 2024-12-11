@@ -13,6 +13,7 @@ import traci from '../assets/about/traci.jpg';
 import becca from '../assets/about/becca.jpg';
 import BoardMember from './BoardMember';
 
+
 const textBlurbs = {
   a: `Gainesville Regional Soccer League is a non-profit organization founded in 1982
     to bring adults from all backgrounds together through soccer.`,
@@ -169,7 +170,7 @@ export default function Info() {
         }}>
           <BoardMember name="Martin Costello" role="President" imageSrc={martin} />
           <BoardMember name="Steve Moore" role="Vice President" imageSrc={steve} />
-          <BoardMember name="Rebeca Denehan" role="Treasurer" imageSrc={rebeca} /> 
+          <BoardMember name="Rebeca Denahan" role="Treasurer" imageSrc={rebeca} /> 
           <BoardMember name="Becca Antelis" role="Team and Player Relations" imageSrc={becca} />
           <BoardMember name="Mary Butterworth" role="Secretary" imageSrc={mary} />
           <BoardMember name="Isaiah Brinza" role="Marketing & Communications" imageSrc={isaiah} />

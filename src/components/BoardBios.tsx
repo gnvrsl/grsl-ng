@@ -9,6 +9,7 @@ import rebeca from '../assets/about/rebeca.jpg';
 import isaiah from '../assets/about/isaiah.jpg';
 import traci from '../assets/about/traci.jpg';
 import becca from '../assets/about/becca.jpg';
+import ScrollToTop from "./ScrollToTop";
 
 const boardBios = {
   martin: `Martin Costello is President of the Gainesville Regional Soccer League (GRSL) Board of Directors. Martin has participated in the league since 2016 beginning as a player with the team Starting Reserves before joining Risky Business FC. Now team Captain for Risky Business FC,  Martin has served on the GRSL Board of Directors since 2019 with his first term as Disciplinary Chair. Professionally, Martin is an Engineer with Foghorn Consulting, Inc. Prior to his engineering role, Martin was a Project Manager and Florida Ecological Lead with Normandeau Associates, Inc. Martin is an experienced race director and event coordinator, involved in directed running and triathlon races as well as coordinating race site logistics for large scale triathlons. In addition to soccer, Martin enjoys triathlon, playing waterpolo, and exploring the great outdoors—including additional volunteering with efforts to conserve local habitats and wildlife.
@@ -29,6 +30,7 @@ Becca joined the league looking to play soccer and meet new people, and along th
 export default function BoardBios() {
   return (
     <>
+      <ScrollToTop />
       <Container
       sx={{
         pt: { xs: 10, sm: 14 },
@@ -39,7 +41,7 @@ export default function BoardBios() {
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3 }}>
         <BoardMemberBio name="Martin Costello" role="President" imageSrc={martin} bio={boardBios.martin} />
         <BoardMemberBio name="Steve Moore" role="Vice President" imageSrc={steve} bio={boardBios.steve} />
-        <BoardMemberBio name="Rebeca Denehan" role="Treasurer" imageSrc={rebeca} bio={boardBios.rebeca} /> 
+        <BoardMemberBio name="Rebeca Denahan" role="Treasurer" imageSrc={rebeca} bio={boardBios.rebeca} /> 
         <BoardMemberBio name="Becca Antelis" role="Team and Player Relations" imageSrc={becca} bio={boardBios.becca} />
         <BoardMemberBio name="Mary Butterworth" role="Secretary" imageSrc={mary} bio={boardBios.mary} />
         <BoardMemberBio name="Isaiah Brinza" role="Marketing & Communications" imageSrc={isaiah} bio={boardBios.isaiah} />

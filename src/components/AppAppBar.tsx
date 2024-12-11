@@ -14,7 +14,6 @@ import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import Switch from '@mui/material/Switch';
 
 
 interface AppAppBarProps {
@@ -207,6 +206,9 @@ function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
                   </MenuItem>
                   <MenuItem onClick={() => {router.navigate('/about'); setOpen(false);}}>
                     About
+                  </MenuItem>
+                  <MenuItem onClick={() => {router.navigate('/board'); setOpen(false);}}>
+                    Board of Directors
                   </MenuItem>
                   <MenuItem onClick={() => {router.navigate('/documents'); setOpen(false);}}>
                     Documents

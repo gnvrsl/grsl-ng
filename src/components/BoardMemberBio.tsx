@@ -16,7 +16,8 @@ interface BoardMemberBioProps {
 export default function BoardMemberBio({ name, role, imageSrc, bio }: BoardMemberBioProps) {
 
   return (
-    <Card sx={{ maxWidth: '600px', width: '100%'}}>
+    <Card sx={{ maxWidth: '600px', width: '100%'}}
+      id={name}>
       <CardMedia sx={{ height: '100%', minHeight: '400px' }} 
         image={imageSrc} title={name} />
       <CardContent>
