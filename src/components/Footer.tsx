@@ -119,6 +119,10 @@ export default function Footer() {
           <div>
             <Copyright />
           </div>
+          <Box sx={{ typography: 'body2', color: 'text.secondary'}}>
+            Website by <a href="https://pancakelogic.com">Pancake Logic</a>
+
+          </Box>
           <Stack
             direction="row"
             justifyContent="left"
