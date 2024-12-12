@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { getData, Game, FieldLining } from '../GrslData';
+import { LeagueData, Game, FieldLining } from '../GrslData';
 import {
   Box,
   Container,
@@ -14,10 +14,11 @@ import { useState } from 'react';
 import GameLine from './GameLine';
 import LiningLine from './LiningLine';
 import Footer from './Footer';
+import { useLoaderData } from 'react-router-dom';
 
 
 export default function Schedule() {
-  const grslData = getData();
+  const grslData = useLoaderData() as LeagueData;
   const [division, setDivision] = useState('');
   const [year, setYear] = useState("This Week");
   const [team, setTeam] = useState('');

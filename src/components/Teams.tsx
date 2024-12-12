@@ -12,15 +12,15 @@ import {
   FormControlLabel,
 } from '@mui/material';
 import Footer from './Footer';
-import { getData } from '../GrslData';
+import { LeagueData } from '../GrslData';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useState } from 'react';
-import { Link  as RouterLink} from 'react-router-dom';
+import { Link  as RouterLink, useLoaderData} from 'react-router-dom';
 
 
 export default function Teams() {
-  const grslData = getData();
+  const grslData = useLoaderData() as LeagueData;
   let teams = Object.values(grslData.teams).sort((a,b ) => a.rank < b.rank ? -1 : 1);
   const [activeTeams, setActiveTeams] = useState(true);
 

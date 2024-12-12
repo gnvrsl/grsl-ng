@@ -14,8 +14,8 @@ import {
   TableRow,
 } from '@mui/material';
 import Footer from './Footer';
-import { getData } from '../GrslData';
-import { useParams } from "react-router-dom";
+import { LeagueData } from '../GrslData';
+import { useLoaderData, useParams } from "react-router-dom";
 import StandingsTableSection from './StandingsTableSection';
 import { Game, Standings as IStandings } from '../GrslData';
 import { useNavigate } from "react-router-dom";
@@ -23,7 +23,7 @@ import GameLine from './GameLine';
 import React from 'react';
 
 export default function Standings() {
-  const grslData = getData();
+  const grslData = useLoaderData() as LeagueData;
   const params = useParams<{code: string}>();
   const navigate = useNavigate();
 

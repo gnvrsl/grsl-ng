@@ -1,19 +1,3 @@
-import { 
-  fields,
-  fieldLining,
-  schedule, 
-  playDates,
-  seasons, 
-  standings,
-  teams,
- } from './assets/teamsGames.json';
-
- import {
-  cards,
-  goals,
-  players
- } from './assets/playerData.json'
-
 export interface Card {
   player: Player,
   game: Game,
@@ -95,6 +79,8 @@ export interface Team {
   code: string,
   captain1: Player | null,
   captain2: Player | null,
+  captain1Id: number | null,
+  captain2Id: number | null,
   jersey1: string | null, 
   jersey2: string | null,
   shorts1: string | null,
@@ -155,6 +141,23 @@ export interface Standings {
 type Division = "a" | "b" | "c";
 type GameType = "r" | "s" | "f" | "t" | "";
 
+interface RawTeamsGames {
+  fields: any[],
+  fieldLining: any[],
+  schedule: any[], 
+  playDates: any[],
+  seasons: any[], 
+  standings: any[],
+  teams: any[],
+}
+
+
+interface RawPlayers {
+  cards: any[],
+  goals: any[],
+  players: any[]
+}
+
 export interface LeagueData {
   'seasons': { [key: number]: Season },
   'seasons2': Season2[],
@@ -169,18 +172,46 @@ export interface LeagueData {
 
 let _grslData: LeagueData | null = null;
 
-export function getPlayerData(): LeagueData {
+export function getPlayerData(playerData: RawPlayers | null): LeagueData {
   if (!_grslData) {
-    _grslData = getData();
+    _grslData = getData(null);
   }
 
   if (_grslData.seasons[32].cards.length > 0) {
     return _grslData;
   }
 
-  let gPlayers = _grslData.players;
+  if (! playerData) {
+    throw new Error("getPlayerData called without data");
+  }
+
+  const { cards, goals, players } = playerData;
+
   let gGames = _grslData.games;
   let gTeams = _grslData.teams;
+
+  let gPlayers: { [key: number]: Player } = {};
+  for (let p of players) {
+    let gp = {
+      _id: p.pid,
+      passId: p['pass-id'],
+      firstName: p.FName,
+      lastName: p.LName,
+      name: p.FName + " " + p.LName,
+      gender: p.gen
+    }
+    gPlayers[gp._id] = gp;
+  }
+
+  // Set team captains
+  for (let t of Object.values(gTeams)) {
+    if (t.captain1Id) {
+      t.captain1 = gPlayers[t.captain1Id];
+    }
+    if (t.captain2Id) {
+      t.captain2 = gPlayers[t.captain2Id];
+    }
+  }
 
   for (let c of cards) {
     let gc: Card = {
@@ -213,10 +244,15 @@ export function getPlayerData(): LeagueData {
 }
 
 
-export function getData(): LeagueData {
+export function getData(rawData: RawTeamsGames | null): LeagueData {
   if (_grslData) {
     return _grslData;
   }
+  if (! rawData) {
+    throw new Error("getData called without data");
+  }
+
+  const { fields, fieldLining, schedule, playDates, seasons, standings, teams } = rawData;
 
   let gYears: number[] = []
   let gSeasons: { [key: number]: Season } = {};
@@ -287,17 +323,6 @@ export function getData(): LeagueData {
   }
 
   let gPlayers: { [key: number]: Player } = {};
-  for (let p of players) {
-    let gp = {
-      _id: p.pid,
-      passId: p['pass-id'],
-      firstName: p.FName,
-      lastName: p.LName,
-      name: p.FName + " " + p.LName,
-      gender: p.gen
-    }
-    gPlayers[gp._id] = gp;
-  }
 
   let gFields: { [key: number]: Field } = {};
   let gFieldsByCode: { [key: string]: Field } = {}; 
@@ -319,8 +344,10 @@ export function getData(): LeagueData {
       _id: t.teamid,
       name: t.teamname,
       code: t.code,
-      captain1: t.captain1 ? gPlayers[t.captain1] : null,
-      captain2: t.captain2 ? gPlayers[t.captain2] : null,
+      captain1: null,
+      captain2: null,
+      captain1Id: t.captain1,
+      captain2Id: t.captain2,
       jersey1: t.jersey1,
       jersey2: t.jersey2,
       shorts1: t.shorts1,

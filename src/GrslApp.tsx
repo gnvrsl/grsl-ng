@@ -7,7 +7,8 @@ import getGRSLTheme from './getGRSLTheme';
 import {
   createBrowserRouter,
   RouterProvider,
-  Navigate
+  Navigate,
+  useLoaderData
 } from "react-router-dom";
 import Documents from './components/Documents';
 import HomePage from './components/HomePage';
@@ -18,15 +19,46 @@ import Schedule from './components/Schedule';
 import Teams from './components/Teams';
 import TeamPage, { TeamRedirect } from './components/TeamPage';
 import ErrorPage from './components/ErrorPage';
-import { getData } from './GrslData';
+import { getData, getPlayerData, LeagueData } from './GrslData';
 
 const StandingsRedirect = () => {
-   const grslData = getData();
+   const grslData = useLoaderData() as LeagueData;
    const defaultSeasonCode = grslData.seasons2[grslData.seasons2.length - 1].code;
 
    return <Navigate to={`/standings/${defaultSeasonCode}`} />
 }
 
+// Partial load of data for pages that do not need player data
+let teamsGamesLoaded = false;
+const LoadTeamsGames = async () => {
+  let grslData = null;
+  if (! teamsGamesLoaded) {
+    const response = await fetch('/json/teamsGames.json');
+    const teamsGames =  await response.json();
+    grslData = getData(teamsGames);
+    teamsGamesLoaded = true;
+  } else {
+    grslData = getData(null); 
+  } 
+  
+  return grslData;
+}
+
+// This is a separate function because it contains more data that the teamsGames data
+let playersLoaded = false;
+const LoadPlayers = async () => {
+  let grslData = await LoadTeamsGames();
+  if (playersLoaded) {
+    return grslData;
+  }
+
+  const response = await fetch('/json/playerData.json');
+  const players = await response.json();
+  grslData = getPlayerData(players);
+  playersLoaded = true;
+
+  return grslData;
+}
 
 
 const router = createBrowserRouter([
@@ -37,39 +69,51 @@ const router = createBrowserRouter([
   },
   { 
     path: "about",
-    element: <Info />
+    element: <Info />,
+    errorElement: <ErrorPage />
   },
   {
     path: "board",
-    element: <BoardBios />
+    element: <BoardBios />,
+    errorElement: <ErrorPage />
   },
   {
     path: "documents",
-    element: <Documents />
+    element: <Documents />,
+    errorElement: <ErrorPage />
   },
   {
     path: "standings",
-    element: <StandingsRedirect />
+    loader: LoadTeamsGames,
+    element: <StandingsRedirect />,
+    errorElement: <ErrorPage />
   },
   {
     path: "standings/:code",
-    element: <Standings />
+    loader: LoadTeamsGames,
+    element: <Standings />,
+    errorElement: <ErrorPage />
   },
   {
     path: "schedule",
     element: <Schedule />,
+    loader: LoadTeamsGames,
     errorElement: <ErrorPage />
   },
   {
     path: "teams",
-    element: <Teams />
+    loader: LoadTeamsGames,
+    element: <Teams />,
+    errorElement: <ErrorPage />
   },
   {
     path: "team/:code",
-    element: <TeamRedirect />
+    loader: LoadPlayers,
+    element: <TeamRedirect />,
   },
   {
     path: "team/:code/:season",
+    loader: LoadPlayers,
     element: <TeamPage />,
     errorElement: <ErrorPage />
   },

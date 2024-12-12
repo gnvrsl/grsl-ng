@@ -3,12 +3,12 @@ import {
   Navigate,
   useNavigate,
   useParams, 
-  Link as RouterLink 
+  Link as RouterLink, 
+  useLoaderData
 } from "react-router-dom";
 import { useState } from "react";
 import { 
-  getData, 
-  getPlayerData, 
+  LeagueData,  
   Game, 
   FieldLining, 
   Season, 
@@ -42,7 +42,7 @@ import LiningLine from "./LiningLine";
 import Footer from "./Footer";
 
 export function TeamRedirect() {
-  const grslData = getData();
+  const grslData = useLoaderData() as LeagueData;
   const params = useParams();
   const tc = params.code?.toLowerCase();
 
@@ -89,7 +89,7 @@ export default function TeamPage() {
   const [tabValue, setTabValue] = useState(0);
   const params = useParams();
   const navigate = useNavigate();
-  const grslData = getPlayerData();
+  const grslData = useLoaderData() as LeagueData;
   const tc = params.code?.toLowerCase();
 
   const team = Object.values(grslData.teams).find(t => t.code.toLowerCase() == tc);
