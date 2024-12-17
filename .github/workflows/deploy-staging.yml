@@ -20,15 +20,13 @@ jobs:
       - name: Create SSH key
         run: |
           mkdir -p ~/.ssh/
-          echo "$SSH_PRIVATE_KEY" > ../private.key
-          sudo chmod 600 ../private.key
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          sudo chmod 600 ~/.ssh/id_rsa
           echo "grsl-ng.crgk.nl ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILaFOIVX3CYQnBUMuYReuRnOwwSORZjgs2ii//oWz9kN" > ~/.ssh/known_hosts
           ssh-keygen -Hf ~/.ssh/known_hosts
         shell: bash
         env:
           SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
-          SSH_KNOWN_HOSTS: ${{secrets.SSH_KNOWN_HOSTS}}
-          SSH_KEY_PATH: ${{ github.workspace }}/../private.key
       - name: Rsync files
         run: rsync -av dist/ ubuntu@grsl-ng.crgk.nl:/var/www/html/grsl-ng.crgk.nl/
   
