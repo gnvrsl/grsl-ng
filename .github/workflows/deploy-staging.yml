@@ -22,7 +22,8 @@ jobs:
           mkdir -p ~/.ssh/
           echo "$SSH_PRIVATE_KEY" > ../private.key
           sudo chmod 600 ../private.key
-          echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          echo "grsl-ng.crgk.nl ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILaFOIVX3CYQnBUMuYReuRnOwwSORZjgs2ii//oWz9kN" > ~/.ssh/known_hosts
+          ssh-keygen -Hf ~/.ssh/known_hosts
         shell: bash
         env:
           SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
