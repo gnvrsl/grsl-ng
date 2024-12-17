@@ -9,7 +9,7 @@ import steve from '../assets/about/steve.jpg';
 import mary from '../assets/about/mary.jpg';
 import rebeca from '../assets/about/rebeca.jpg';
 import isaiah from '../assets/about/isaiah.jpg';
-import traci from '../assets/about/traci.jpg';
+import traci from '../assets/about/traci.png';
 import becca from '../assets/about/becca.jpg';
 import BoardMember from './BoardMember';
 
@@ -174,7 +174,7 @@ export default function Info() {
           <BoardMember name="Becca Antelis" role="Team and Player Relations" imageSrc={becca} />
           <BoardMember name="Mary Butterworth" role="Secretary" imageSrc={mary} />
           <BoardMember name="Isaiah Brinza" role="Marketing & Communications" imageSrc={isaiah} />
-          <BoardMember name="Traci Ball" role="Board Member" imageSrc={traci} />
+          <BoardMember name="Traci Ball" role="Disciplinary Chair" imageSrc={traci} />
         </Box>
       </Container>
     </Box>
