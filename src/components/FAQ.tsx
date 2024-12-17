@@ -94,7 +94,7 @@ export default function FAQ() {
               gutterBottom
               sx={{ maxWidth: { sm: '100%', md: '70%' } }}
             >
-              Games are played at Abby Wambach Park (formerly named Forest Park).  
+              As of 2024, all games are played at Abby Wambach Park (formerly named Forest Park).  
               The park is located at 501 SW 20th Ave, Gainesville, FL 32607
             </Typography>
           </AccordionDetails>
