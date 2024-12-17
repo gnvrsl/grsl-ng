@@ -7,7 +7,7 @@ import steve from '../assets/about/steve.jpg';
 import mary from '../assets/about/mary.jpg';
 import rebeca from '../assets/about/rebeca.jpg';
 import isaiah from '../assets/about/isaiah.jpg';
-import traci from '../assets/about/traci.jpg';
+import traci from '../assets/about/traci.png';
 import becca from '../assets/about/becca.jpg';
 import ScrollToTop from "./ScrollToTop";
 
@@ -45,7 +45,7 @@ export default function BoardBios() {
         <BoardMemberBio name="Becca Antelis" role="Team and Player Relations" imageSrc={becca} bio={boardBios.becca} />
         <BoardMemberBio name="Mary Butterworth" role="Secretary" imageSrc={mary} bio={boardBios.mary} />
         <BoardMemberBio name="Isaiah Brinza" role="Marketing & Communications" imageSrc={isaiah} bio={boardBios.isaiah} />
-        <BoardMemberBio name="Traci Ball" role="Board Member" imageSrc={traci} bio={boardBios.traci} />
+        <BoardMemberBio name="Traci Ball" role="Disciplinary Chair" imageSrc={traci} bio={boardBios.traci} />
       </Box>
     </Container>
     <Footer />
