@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-    - dev
+    - main
 
 jobs:
   build:
@@ -10,7 +10,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
       - name: setup node
         uses: actions/setup-node@v4
         with:
@@ -22,11 +21,13 @@ jobs:
           mkdir -p ~/.ssh/
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           sudo chmod 600 ~/.ssh/id_rsa
-          echo "grsl-ng.crgk.nl ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILaFOIVX3CYQnBUMuYReuRnOwwSORZjgs2ii//oWz9kN" > ~/.ssh/known_hosts
+          echo "107.180.54.236 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMVDw43wCkWtKYQuVbFoT14uiFQ6uf8aj0w+lB2fulJF" > ~/.ssh/known_hosts
           ssh-keygen -Hf ~/.ssh/known_hosts
         shell: bash
         env:
           SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
-      - name: Rsync files
-        run: rsync -av dist/ ubuntu@grsl-ng.crgk.nl:/var/www/html/grsl-ng.crgk.nl/
+      - name: sftp files to webserver 
+        run: |
+          echo "put -r dist/* public_html/" > sftp-commands.txt
+          sftp -b sftp-commands.txt grslfootball@107.180.54.236
   
