@@ -4,7 +4,7 @@ This site is written in Typescript with React components.  It uses Vite as a bui
 
 ## Development
 
-To run a development version of the site, clone the repository and cd in to the directory.  The build application has only been test on npm version 20.  If using nvm, switch to npm v20 with:
+To run a development version of the site, clone the repository and cd in to the directory.  The build process has only been tested with npm version 20.  If using nvm, switch to npm v20 with:
 ```
 nvm use 20
 ```
