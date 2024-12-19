@@ -64,7 +64,7 @@ export default function Info() {
           textAlign: 'center'
         }}
       >
-        DIVERSITY. INTEGRITY. RESPECT.
+        COMMUNITY, DIVERSITY, RESPECT
       </Box>
       <Box sx={{ typography: 'h4', textAlign: 'center' }}>
         {textBlurbs.a}

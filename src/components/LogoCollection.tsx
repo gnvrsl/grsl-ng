@@ -54,7 +54,7 @@ export default function LogoCollection() {
           mt: 4
         }}
       >
-        DIVERSITY. INTEGRITY. RESPECT.
+        COMMUNITY, DIVERSITY, RESPECT
       </Box>
     </Box>
   );
