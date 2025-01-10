@@ -21,7 +21,11 @@ const boardBios = {
 `,
   isaiah: `Isaiah joined GRSL as a player with Crash FC in 2015. He then went on to captain the last year for Crash in 2019. Isaiah joined the board in 2021 to help GRSL grow a social media presence and work on getting an entirely new website for the league. Isaiah currently works as a sales director for a hospice company called Vitas. In his spare time, Isaiah spends time with family and friends, travels and watches sports. 
 `,
-  traci: ``,
+  traci: `Traci has been a participant in GRSL since 2019 when she joined No Idea FC.  In 2023 she became co-captain of the team. 
+
+Traci started volunteering with the disciplinary committee in early 2024 and later that year was elected to the Board as Disciplinary Chair.  With an over 20-year career in Human Resources her professional experience lends well to her role with the league.     
+
+When she’s not reading the rule book, she spends her time doing CrossFit and supporting Liverpool.  YNWA!`,
   becca: `Becca has been a participant in the GRSL since 2021. She joined as a player for Mondial FC and later moved up to captaining the team. She was elected to the board in 2023 and is the Team and Player Relations member; she connects with new players and captains, helps onboard those in new leadership roles, and runs the biannual recruitment scrimmage.
 Becca joined the league looking to play soccer and meet new people, and along the way found a community of like minded individuals who are not only passionate about soccer, but about inclusiveness, respect, and diversity. In her free time, Becca fosters cats through the Humane Society and listens to true crime podcasts.
 `,
