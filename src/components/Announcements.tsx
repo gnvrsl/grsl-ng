@@ -35,15 +35,12 @@ export default function Announcements() {
       }}>
         <CardContent>
           <Typography variant="h5">
-            Fall 2024 Season
-          </Typography>
+            Spring 2025 Season
+          </Typography>       
           <Typography>
-            Mandatory Fall Captains Meeting is Thursday August 22nd as 6:30pm
-          </Typography>        
-          <Typography>
-            First fall match is Sunday, October 6th
+            First Spring match is Sunday, January 12th
           </Typography>
-          <Link href="/page/dates">Fall 2024 Key Dates</Link>
+          <Link href="/page/dates">Spring 2025 Key Dates</Link>
         </CardContent>
       </Card>
     </Container>
