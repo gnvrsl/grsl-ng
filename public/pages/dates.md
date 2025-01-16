@@ -9,6 +9,9 @@ Referee training via Zoom
 ### Sunday, 1/12/2025
 First regular season game
 
+### Sunday 1/19/20256
+No games, MLK holiday. 
+
 ### Recurring deadlines
 
 Card buybacks: Wednesday, 10:00pm before next game. *Must follow instructions provided in the suspension email.*
