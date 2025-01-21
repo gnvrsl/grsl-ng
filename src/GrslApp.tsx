@@ -20,6 +20,16 @@ import Teams from './components/Teams';
 import TeamPage, { TeamRedirect } from './components/TeamPage';
 import ErrorPage from './components/ErrorPage';
 import { getData, getPlayerData, LeagueData } from './GrslData';
+import Goals from './components/Goals';
+
+
+const GoalsRedirect = () => {
+  const grslData = useLoaderData() as LeagueData;
+  const seasons = Object.values(grslData.seasons);
+  const defaultSeasonCode = seasons[seasons.length - 1].code;
+
+  return <Navigate to={`/goals/${defaultSeasonCode}`} />
+}
 
 const StandingsRedirect = () => {
    const grslData = useLoaderData() as LeagueData;
@@ -80,6 +90,18 @@ const router = createBrowserRouter([
   {
     path: "documents",
     element: <Documents />,
+    errorElement: <ErrorPage />
+  },
+  {
+    path: "goals",
+    loader: LoadTeamsGames,
+    element: <GoalsRedirect />,
+    errorElement: <ErrorPage />
+  },
+  {
+    path: "goals/:code",
+    loader: LoadPlayers,
+    element: <Goals />,
     errorElement: <ErrorPage />
   },
   {
