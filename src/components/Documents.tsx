@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import DocumentCard from "./DocumentCard";
 import bylaws from '../assets/GRSLByLaws.pdf';
 import summerRules from '../assets/SummerRulesandRegulations-8v8.pdf';
-import fallSpringRules from '../assets/FALL2023CORECRULES-APPROVED23AUG2023.pdf';
+import fallSpringRules from '../assets/SPRING2025CORECRULES-APPROVED5DEC2024.pdf';
 import lotg from '../assets/LOTG2024_25.pdf';
 import codeOfConduct from '../assets/GRSL-CODE-OF-CONDUCT.pdf';
 import playerWaiver from '../assets/GRSL-CoG-USSSA-Waiver-FALL-2023.pdf';
