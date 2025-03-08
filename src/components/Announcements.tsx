@@ -35,6 +35,18 @@ export default function Announcements() {
       }}>
         <CardContent>
           <Typography variant="h5">
+            March 9 Games Postponed
+          </Typography>       
+          <Typography>
+            Due to the weather forecast this Sunday all matches are postponed until a later date.
+          </Typography>
+          <Link href="/page/dates">Spring 2025 Key Dates</Link>
+        </CardContent>
+      </Card>
+      <Card sx={{ 
+      }}>
+        <CardContent>
+          <Typography variant="h5">
             Spring 2025 Season
           </Typography>       
           <Typography>
