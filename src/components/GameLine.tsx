@@ -20,7 +20,8 @@ export default function GameLine({ game, includeDate} : GameLineProps) {
     s: ['Semi', 'Semifinal'], 
     f: ['Final', 'Final'], 
     t: ['3rd Pl.','3rd Place'],
-    '':['', 'Regular Season']
+    '':['', 'Regular Season'],
+
   };
   
 
@@ -34,7 +35,11 @@ export default function GameLine({ game, includeDate} : GameLineProps) {
   let gameType;
   const gtIdx = mediumNames ? 0 : 1;
   if (game.tournament) {
-    gameType = gameTypes[game.gameType][gtIdx];
+    if (gameTypes[game.gameType]) {
+      gameType = gameTypes[game.gameType][gtIdx];
+    } else{
+      gameType = "Tour."
+    }
   } else {
     gameType = gameTypes[''][gtIdx];
   }
