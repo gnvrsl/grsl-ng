@@ -38,7 +38,7 @@ export default function GameLine({ game, includeDate} : GameLineProps) {
     if (gameTypes[game.gameType]) {
       gameType = gameTypes[game.gameType][gtIdx];
     } else{
-      gameType = "Tour."
+      gameType = (["Tour.","Tournament"])[gtIdx];
     }
   } else {
     gameType = gameTypes[''][gtIdx];
