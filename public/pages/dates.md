@@ -25,9 +25,12 @@ Summer captains meeting, location TBD
 Tournamenet, 3rd group stage games.
 
 ### Sunday, 4/20/2025
-GRSL Semifinals
+Make up of rained out 1st group stage games
 
 ### Sunday, 4/27/2025
+Semifinals
+
+### Sunday, 5/4/2025
 GRSL Finals and 3rd place games.  End of season league party. 
 
 ### Sunday, 5/11/2025
