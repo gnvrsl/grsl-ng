@@ -26,3 +26,5 @@ dist-ssr
 # json database files
 public/json/playerData.json
 public/json/teamsGames.json
+
+images-misc/*
