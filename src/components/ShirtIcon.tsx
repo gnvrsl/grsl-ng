@@ -10,7 +10,7 @@ import jerseyTopJuveaway from '../assets/jerseys/jersey_top_JUVEAWAY.png';
 import jerseyTopLimeblack from '../assets/jerseys/jersey_top_LIMEBLACK.png';
 import jerseyTopMaroon from '../assets/jerseys/jersey_top_MAROON.png';
 import jerseyTopNavy from '../assets/jerseys/jersey_top_NAVY.png';
-import jerseyTopNeonGreen from '../assets/jerseys/jersey_top_NEON-GREEN.png';
+import jerseyTopNeonGreen from '../assets/jerseys/jersey_top_NEONGREEN.png';
 import jerseyTopNotengo from '../assets/jerseys/jersey_top_NOTENGO.png';
 import jerseyTopOrange from '../assets/jerseys/jersey_top_ORANGE.png';
 import jerseyTopPink from '../assets/jerseys/jersey_top_PINK.png';
@@ -26,6 +26,7 @@ import jerseyTopWhitePsg from '../assets/jerseys/jersey_top_WHITE-PSG.png';
 import jerseyTopWhite from '../assets/jerseys/jersey_top_WHITE.png';
 import jerseyTopYellow from '../assets/jerseys/jersey_top_YELLOW.png';
 import jerseyTopYrs from '../assets/jerseys/jersey_top_YRS.png';
+import jerseyTopSpartansfc from '../assets/jerseys/jersey_top_SPARTANSFC.png';
 
 export interface ShirtIconProps {
   shirtColor: string | null;
@@ -59,7 +60,8 @@ export default function ShirtIcon(props: ShirtIconProps) {
     jerseyTopWhitePsg,
     jerseyTopWhite,
     jerseyTopYellow,
-    jerseyTopYrs
+    jerseyTopYrs,
+    jerseyTopSpartansfc
   ];
 
   if (!props.shirtColor) {
@@ -72,6 +74,7 @@ export default function ShirtIcon(props: ShirtIconProps) {
   const shirtNospaces = shirtUpper.replace(/ /g, '');
   let jerseyUrl = jerseyUrls.find(j => j.includes(shirtNospaces));
   if (!jerseyUrl) {
+    console.log("jerseyUrl not found for " + shirtNospaces);
     jerseyUrl = jerseyTopUndef;
   }
 
