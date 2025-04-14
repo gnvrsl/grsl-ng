@@ -23,6 +23,3 @@ dist-ssr
 *.sln
 *.sw?
 
-# json database files
-public/json/playerData.json
-public/json/teamsGames.json
