@@ -20,9 +20,10 @@ interface AppAppBarProps {
   mode: PaletteMode;
   toggleColorMode: () => void;
   router: { navigate: (url: string) => void };
+  displayAlertBanner: boolean;
 }
 
-function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
+function AppAppBar({ mode, toggleColorMode, router, displayAlertBanner }: AppAppBarProps) {
   const [open, setOpen] = React.useState(false);
   let logo = '/Primary-GRSL.png';
   mode == 'light' && toggleColorMode();  //  this is a no-op, it's here so I don't have to change the props definition
@@ -56,6 +57,9 @@ function AppAppBar({ mode, toggleColorMode, router}: AppAppBarProps) {
           bgcolor: 'transparent',
           backgroundImage: 'none',
           mt: 2,
+          ...(displayAlertBanner && {
+            mt: {xs: 10, sm: 8},
+          }),
         }}
       >
 

@@ -21,6 +21,9 @@ import TeamPage, { TeamRedirect } from './components/TeamPage';
 import ErrorPage from './components/ErrorPage';
 import { getData, getPlayerData, LeagueData } from './GrslData';
 import Goals from './components/Goals';
+import { useState } from 'react';
+import AlertBanner from './components/AlertBanner';
+import { alertMessageText } from './AlertMessageText';
 
 
 const GoalsRedirect = () => {
@@ -150,7 +153,8 @@ const router = createBrowserRouter([
 export default function GrslApp() {
   const mode = useMediaQuery('(prefers-color-scheme: dark)') ? 'dark' : 'light';
   const GRSLTheme = createTheme(getGRSLTheme(mode));
-  //const defaultTheme = createTheme({ palette: { mode } });
+  
+  const [alertMessage, _] = useState(alertMessageText);
 
   const toggleColorMode = () => {
     //setMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
@@ -159,7 +163,13 @@ export default function GrslApp() {
   return (
     <ThemeProvider theme={GRSLTheme}>
       <CssBaseline />
-      <AppAppBar mode={mode} toggleColorMode={toggleColorMode} router={router} />
+      <AlertBanner message={alertMessage} />
+      <AppAppBar 
+        mode={mode} 
+        toggleColorMode={toggleColorMode} 
+        router={router} 
+        displayAlertBanner={alertMessage !== ""}
+      />
       <RouterProvider router={router} />
     </ThemeProvider>
   );
