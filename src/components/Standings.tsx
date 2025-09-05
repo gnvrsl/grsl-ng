@@ -13,7 +13,7 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
-import Footer from './Footer';
+import UsssaFooter from './UsssaFooter';
 import { LeagueData } from '../GrslData';
 import { useLoaderData, useParams } from "react-router-dom";
 import StandingsTableSection from './StandingsTableSection';
@@ -139,7 +139,7 @@ export default function Standings() {
           </Table>
         </TableContainer>  
       </Container>
-      <Footer />
+      <UsssaFooter />
     </>
   )
 }
