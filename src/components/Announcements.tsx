@@ -35,12 +35,12 @@ export default function Announcements() {
       }}>
         <CardContent>
           <Typography variant="h5">
-            Spring 2025 Season
+            Fall 2025 Season
           </Typography>       
           <Typography>
-            Updated schedule, tournament resumes April 6th
+            Fall 2025 Season starts September 21
           </Typography>
-          <Link href="/page/dates">Spring 2025 Key Dates</Link>
+          <Link href="/page/dates">Fall 2025 Key Dates</Link>
         </CardContent>
       </Card>
     </Container>
