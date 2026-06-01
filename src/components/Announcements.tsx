@@ -35,12 +35,12 @@ export default function Announcements() {
       }}>
         <CardContent>
           <Typography variant="h5">
-            Spring 2026 Season
+            Summer 2026 Season
           </Typography>       
           <Typography>
-            Spring 2026 Season starts February 8th
+            Summer 2026 Season starts May 17th
           </Typography>
-          <Link href="/page/dates">Spring 2026 Key Dates</Link>
+          <Link href="/page/dates">Summer 2026 Key Dates</Link>
         </CardContent>
       </Card>
     </Container>
