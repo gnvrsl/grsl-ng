@@ -1,22 +1,17 @@
 # Key Dates
 
-### Thursday, 6/11/2026 5:00pm
-Remaining summer team fees due via Quickbooks
+### Sunday, 9/20/2026
+First games of fall season
 
-### Thursday, 6/18/2026 10:00pm
-Final roster changes, rosters locked for playoffs
+### Thursday, 10/8/2026 5:00pm
+Remaining fall team fees due
 
-### Sunday, 7/5/2026
-No games, 4th of July weekend
+### Sunday, 11/15/2026
+Final games.  End of season party 
 
-### Sunday, 7/26/2026
-Semifinals
+### Sunday, 11/22/2026 and 12/6/2026
+Potential make up dates
 
-### Sunday, 8/2/2026
-Finals and end of season party
-
-### Sunday, 8/9/2026
-Potential make up date
 
 ### Recurring deadlines
 
