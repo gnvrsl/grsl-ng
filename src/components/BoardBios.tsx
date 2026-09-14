@@ -47,8 +47,6 @@ export default function BoardBios() {
         <BoardMemberBio name="Steve Moore" role="Vice President" imageSrc={steve} bio={boardBios.steve} />
         <BoardMemberBio name="Rebeca Denahan" role="Treasurer" imageSrc={rebeca} bio={boardBios.rebeca} /> 
         <BoardMemberBio name="Becca Antelis" role="Team and Player Relations" imageSrc={becca} bio={boardBios.becca} />
-        <BoardMemberBio name="Mary Butterworth" role="Secretary" imageSrc={mary} bio={boardBios.mary} />
-        <BoardMemberBio name="Isaiah Brinza" role="Marketing & Communications" imageSrc={isaiah} bio={boardBios.isaiah} />
         <BoardMemberBio name="Traci Ball" role="Disciplinary Chair" imageSrc={traci} bio={boardBios.traci} />
       </Box>
     </Container>

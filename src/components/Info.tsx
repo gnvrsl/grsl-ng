@@ -172,8 +172,6 @@ export default function Info() {
           <BoardMember name="Steve Moore" role="Vice President" imageSrc={steve} />
           <BoardMember name="Rebeca Denahan" role="Treasurer" imageSrc={rebeca} /> 
           <BoardMember name="Becca Antelis" role="Team and Player Relations" imageSrc={becca} />
-          <BoardMember name="Mary Butterworth" role="Secretary" imageSrc={mary} />
-          <BoardMember name="Isaiah Brinza" role="Marketing & Communications" imageSrc={isaiah} />
           <BoardMember name="Traci Ball" role="Disciplinary Chair" imageSrc={traci} />
         </Box>
       </Container>
