@@ -10,7 +10,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import GrslLogoFull from '../assets/grsl-logos/Horizontal-Full.png';
 import bylaws from '../assets/GRSLByLaws.pdf';
 import summerRules from '../assets/SummerRulesandRegulations-8v8.pdf';
-import fallSpringRules from '../assets/FALL2023CORECRULES-APPROVED23AUG2023.pdf';
+import fallSpringRules from '../assets/FALL2026GRSLRULES.pdf';
 import lotg from '../assets/LOTG2024_25.pdf';
 
 const logoStyle = {
